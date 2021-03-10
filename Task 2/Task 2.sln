@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomStringLibrary", "Task 2.1\Task 2.1.1\CustomStringLibrary\CustomStringLibrary.csproj", "{CC55E631-3C0F-41E2-B003-FD8BA5F12E24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "Task 2.1\Task 2.1.1\ConsoleApp\ConsoleApp.csproj", "{951EAAF2-AD99-4EA9-A452-86A14ACEA920}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Task 2.1", "Task 2.1", "{C8EFBF67-725B-405B-BDA7-28634153F26E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Task 2.1.1", "Task 2.1.1", "{359E0B65-7611-4A4B-A2FC-289BF4C534CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Task 2.1.2", "Task 2.1.2", "{7BB8F4D3-68F1-44AD-A1E6-B2B01A560379}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomPaint", "Task 2.1\Task 2.1.2\CustomPaint\CustomPaint.csproj", "{A95E96E9-D333-41BE-B33A-7E4F0DEBD0D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Task 2.2", "Task 2.2", "{CE45A437-C589-40C1-9442-98DF2BDBB334}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Task 2.2.1", "Task 2.2.1", "{9BC0BD94-C332-4068-B979-F99E4F89865B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Task 2.2\Task 2.2.1\Game\Game.csproj", "{712A51EF-3A19-4712-A891-9E2B8A44AC5B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC55E631-3C0F-41E2-B003-FD8BA5F12E24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC55E631-3C0F-41E2-B003-FD8BA5F12E24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC55E631-3C0F-41E2-B003-FD8BA5F12E24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC55E631-3C0F-41E2-B003-FD8BA5F12E24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{951EAAF2-AD99-4EA9-A452-86A14ACEA920}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{951EAAF2-AD99-4EA9-A452-86A14ACEA920}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{951EAAF2-AD99-4EA9-A452-86A14ACEA920}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{951EAAF2-AD99-4EA9-A452-86A14ACEA920}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A95E96E9-D333-41BE-B33A-7E4F0DEBD0D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A95E96E9-D333-41BE-B33A-7E4F0DEBD0D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A95E96E9-D333-41BE-B33A-7E4F0DEBD0D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A95E96E9-D333-41BE-B33A-7E4F0DEBD0D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{712A51EF-3A19-4712-A891-9E2B8A44AC5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{712A51EF-3A19-4712-A891-9E2B8A44AC5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{712A51EF-3A19-4712-A891-9E2B8A44AC5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{712A51EF-3A19-4712-A891-9E2B8A44AC5B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CC55E631-3C0F-41E2-B003-FD8BA5F12E24} = {359E0B65-7611-4A4B-A2FC-289BF4C534CA}
+		{951EAAF2-AD99-4EA9-A452-86A14ACEA920} = {359E0B65-7611-4A4B-A2FC-289BF4C534CA}
+		{359E0B65-7611-4A4B-A2FC-289BF4C534CA} = {C8EFBF67-725B-405B-BDA7-28634153F26E}
+		{7BB8F4D3-68F1-44AD-A1E6-B2B01A560379} = {C8EFBF67-725B-405B-BDA7-28634153F26E}
+		{A95E96E9-D333-41BE-B33A-7E4F0DEBD0D5} = {7BB8F4D3-68F1-44AD-A1E6-B2B01A560379}
+		{9BC0BD94-C332-4068-B979-F99E4F89865B} = {CE45A437-C589-40C1-9442-98DF2BDBB334}
+		{712A51EF-3A19-4712-A891-9E2B8A44AC5B} = {9BC0BD94-C332-4068-B979-F99E4F89865B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {81BF1CF5-902C-4AF5-83B6-7F74B57EBDFB}
+	EndGlobalSection
+EndGlobal
