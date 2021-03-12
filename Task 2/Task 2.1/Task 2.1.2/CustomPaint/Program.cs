@@ -50,7 +50,9 @@ namespace CustomPaint
 
             var user = ChangeUser();
 
-            while (true)
+            var isOver = false;
+
+            while (!isOver)
             {
                 PrintMenu();
                 Console.Write("ВВОД: ");
@@ -72,7 +74,7 @@ namespace CustomPaint
                 else if (option == Options.Exit)
                 {
                     Console.WriteLine("ВЫВОД: Выход");
-                    break;
+                    isOver = true;
                 }
                 else if (option == Options.ChangeUser)
                 {
@@ -189,28 +191,35 @@ namespace CustomPaint
             do
             {
                 Console.Write("ВВОД: ");
-                var color = (Color)Enum.Parse(typeof(Color), Console.ReadLine());
-                if (!Enum.IsDefined(typeof(Color), color))
-                {
-                    Console.WriteLine("ВЫВОД: Неправильный выбор");
-                }
-                else
-                {
+                var value = Console.ReadLine();
+                if (Enum.TryParse(value, ignoreCase: true, out Color color))
                     return color;
-                }
+                else
+                    Console.WriteLine("ВЫВОД: Неправильный выбор");
+
+            } while (true);
+        }
+
+        private static double EnterCoordinate()
+        {
+            do
+            {
+                Console.Write("ВВОД: ");
+                var value = Console.ReadLine();
+                if (double.TryParse(value, out double coordinate))
+                    return coordinate;
+                else
+                    Console.WriteLine("ВЫВОД: Неправильное значение");
+
             } while (true);
         }
 
         private static Point EnterPoint(Color color)
         {
             Console.WriteLine("ВЫВОД: Введите первую координату: ");
-            Console.Write("ВВОД: ");
-            double x = double.Parse(Console.ReadLine());
-
+            var x = EnterCoordinate();
             Console.WriteLine("ВЫВОД: Введите вторую координату: ");
-            Console.Write("ВВОД: ");
-            double y = double.Parse(Console.ReadLine());
-
+            var y = EnterCoordinate();
             return new Point(x, y, color);
         }
 
@@ -219,15 +228,12 @@ namespace CustomPaint
             do
             {
                 Console.Write("ВВОД: ");
-                double scalar = double.Parse(Console.ReadLine());
-                if (scalar <= 0)
-                {
-                    Console.WriteLine("ВЫВОД: Неправильное значение");
-                }
-                else
-                {
+                var value = Console.ReadLine();
+                if (double.TryParse(value, out double scalar) && scalar > 0)
                     return scalar;
-                }
+                else
+                    Console.WriteLine("ВЫВОД: Неправильное значение");
+
             } while (true);
         }
 

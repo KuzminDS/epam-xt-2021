@@ -128,10 +128,7 @@ namespace CustomStringLibrary   //task with ** dll works correctly with other pr
 
         public override string ToString()
         {
-            string result = "";
-            for (int i = 0; i < _charArray.Length; i++)
-                result += _charArray[i];
-            return result;
+            return new string(_charArray);
         }
 
         public char this[int i] // task with * indexer

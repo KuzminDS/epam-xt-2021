@@ -17,14 +17,14 @@ namespace CustomPaint
 
         public void Add(User user)
         {
-            if (_users.Select(u => u.Name).Contains(user.Name))
+            if (_users.Any(u => u.Name == user.Name))
                 throw new Exception($"User with name {user.Name} already exists");
             _users.Add(user);
         }
 
         public User GetByName(string name)
         {
-            var user = _users.Where(u => u.Name == name).FirstOrDefault();
+            var user = _users.FirstOrDefault(u => u.Name == name);
             if (user == null)
                 throw new Exception($"User with name {user.Name} doesn't exist");
             return user;
