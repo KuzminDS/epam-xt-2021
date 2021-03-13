@@ -93,38 +93,7 @@ namespace CustomPaint
             Console.WriteLine("ВЫВОД: Список фигур:");
             foreach (var shape in user.Shapes)
             {
-                if (shape is Point point)
-                {
-                    Console.WriteLine(point);
-                }
-                else if (shape is Line line)
-                {
-                    Console.WriteLine(line);
-                }
-                else if (shape is Circle circle)
-                {
-                    Console.WriteLine(circle);
-                }
-                else if (shape is Сircumference сircumference)
-                {
-                    Console.WriteLine(сircumference);
-                }
-                else if (shape is Ring ring)
-                {
-                    Console.WriteLine(ring);
-                }
-                else if (shape is Triangle triangle)
-                {
-                    Console.WriteLine(triangle);
-                }
-                else if (shape is Rectangle rectangle)
-                {
-                    Console.WriteLine(rectangle);
-                }
-                else if (shape is Square square)
-                {
-                    Console.WriteLine(square);
-                }
+                Console.WriteLine(shape);
             }
         }
 
