@@ -8,19 +8,33 @@ namespace Task_1._1
 {
     class Program
     {
+        static void Main(string[] args)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Rectangle();
+            Triangle();
+            AnotherTriangle();
+            XMasTree();
+            SumOfNumbers();
+            FontAdjustment();
+            ArrayProcessing();
+            NoPositive();
+            NonNegativeSum();
+            Array2D();
+        }
+
         static int GetPositiveValue()
         {
-            int value;
             do
             {
-                value = int.Parse(Console.ReadLine());
-                if (value <= 0)
-                    Console.WriteLine("Error: The value is not positive. Enter again:");
+                Console.Write("ВВОД: ");
+                var value = Console.ReadLine();
+                if (int.TryParse(value, out int result) && result > 0)
+                    return result;
                 else
-                    break;
+                    Console.WriteLine("Error: The value is not positive. Enter again:");
 
             } while (true);
-            return value;
         }
 
         static void Rectangle()
@@ -46,14 +60,23 @@ namespace Task_1._1
 
             for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j <= i; j++)
-                {
-                    Console.Write("*");
-                }
-                Console.WriteLine();
+                Console.WriteLine(new string('*', i + 1));
             }
 
             Console.WriteLine("\nEnd of 1.1.2 TRIANGLE\n");
+        }
+
+        static void PrintTriangle(int n, int spaceNum)
+        {
+            var stars = new StringBuilder("*");
+
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write(new string(' ', spaceNum));
+                Console.WriteLine(stars);
+                stars.Append("**");
+                spaceNum--;
+            }
         }
 
         static void AnotherTriangle()
@@ -62,19 +85,18 @@ namespace Task_1._1
 
             Console.WriteLine("Enter n:");
             int n = GetPositiveValue();
-            int spaceNum = n - 1;
-            string stars = "*";
+            //int spaceNum = n - 1;
 
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < spaceNum; j++)
-                {
-                    Console.Write(" ");
-                }
-                Console.Write(stars + "\n");
-                stars += "**";
-                spaceNum--;
-            }
+            PrintTriangle(n, n - 1);
+            //var stars = new StringBuilder("*");
+
+            //for (int i = 0; i < n; i++)
+            //{
+            //    Console.Write(new string(' ', spaceNum));
+            //    Console.WriteLine(stars);
+            //    stars.Append("**");
+            //    spaceNum--;
+            //}
 
             Console.WriteLine("\nEnd of 1.1.3 ANOTHER TRIANGLE\n");
         }
@@ -88,18 +110,16 @@ namespace Task_1._1
 
             for (int k = 0; k < n; k++)
             {
-                int spaceNum = n - 1;
-                string stars = "*";
-                for (int i = 0; i <= k; i++)
-                {
-                    for (int j = 0; j < spaceNum; j++)
-                    {
-                        Console.Write(" ");
-                    }
-                    Console.Write(stars + "\n");
-                    stars += "**";
-                    spaceNum--;
-                } 
+                PrintTriangle(k + 1, n - 1);
+                //int spaceNum = n - 1;
+                //var stars = new StringBuilder("*");
+                //for (int i = 0; i <= k; i++)
+                //{
+                //    Console.Write(new string(' ', spaceNum));
+                //    Console.WriteLine(stars);
+                //    stars.Append("**");
+                //    spaceNum--;
+                //} 
             }
 
             Console.WriteLine("\nEnd of 1.1.4 X-MAS TREE\n");
@@ -125,6 +145,13 @@ namespace Task_1._1
             Console.WriteLine("\nEnd of 1.1.5 SUM OF NUMBERS\n");
         }
 
+        enum Fonts
+        {
+            Bold = 1,
+            Italic,
+            Underline
+        }
+
         static void FontAdjustment()
         {
             Console.WriteLine("\nStart of 1.1.6 FONT ADJUSTMENT\n");
@@ -134,7 +161,7 @@ namespace Task_1._1
                 "2: italic\n" +
                 "3: underline";
 
-            var parameters = new List<string>();
+            var parameters = new List<Fonts>();
 
             Console.WriteLine("Введите 0, чтобы выйти");
             while (true)
@@ -157,16 +184,17 @@ namespace Task_1._1
 
                 Console.WriteLine(fontInfo);
 
-                int option = int.Parse(Console.ReadLine());
-                string fontType = "";
-                if (option == 0)
+                if (Enum.TryParse(Console.ReadLine(), out Fonts fontType))
+                {
+                    if (fontType == 0)
+                        break;
+                    else if (!Enum.IsDefined(typeof(Fonts), fontType))
+                        continue;
+                }
+                else
+                {
                     break;
-                else if (option == 1)
-                    fontType = "Bold";
-                else if (option == 2)
-                    fontType = "Italic";
-                else if (option == 3)
-                    fontType = "Underline";
+                }
 
                 if(parameters.Contains(fontType))
                     parameters.Remove(fontType);
@@ -177,14 +205,15 @@ namespace Task_1._1
             Console.WriteLine("\nEnd of 1.1.6 FONT ADJUSTMENT\n");
         }
 
-        static void FillArray(out int[] array, int n, int minValue, int maxValue)
+        static int[] FillArray(int n, int minValue, int maxValue)
         {
-            array = new int[n];
+            var array = new int[n];
             Random random = new Random();
             for (int i = 0; i < n; i++)
             {
                 array[i] = random.Next(minValue, maxValue);
             }
+            return array;
         }
         static int Max(int[] array)
         {
@@ -215,7 +244,7 @@ namespace Task_1._1
             Console.WriteLine();
         }
 
-        static void SortArray(ref int[] array, int first, int last)
+        static void SortArray(int[] array, int first, int last)
         {
             int pivot = array[(last - first) / 2 + first];
             int temp;
@@ -232,8 +261,8 @@ namespace Task_1._1
                     ++i; --j;
                 }
             }
-            if (j > first) SortArray(ref array, first, j);
-            if (i < last) SortArray(ref array, i, last);
+            if (j > first) SortArray(array, first, j);
+            if (i < last) SortArray(array, i, last);
         }
 
         static void ArrayProcessing()
@@ -241,11 +270,9 @@ namespace Task_1._1
             Console.WriteLine("\nStart of 1.1.7 ARRAY PROCESSING\n");
 
             int n = 20;
-            int[] array;
             int minValue = -1000;
             int maxValue = 1000;
-
-            FillArray(out array, n, minValue, maxValue);
+            int[] array = FillArray(n, minValue, maxValue);
 
             Console.Write("Array: ");
             PrintArray(array);
@@ -253,40 +280,39 @@ namespace Task_1._1
             Console.WriteLine("Max value of array is " + Max(array));
             Console.WriteLine("Min value of array is " + Min(array));
 
-            SortArray(ref array, 0, n - 1);
+            SortArray(array, 0, n - 1);
             Console.Write("Sorted array: ");
             PrintArray(array);
 
             Console.WriteLine("\nEnd of 1.1.7 ARRAY PROCESSING\n");
         }
 
-        static void Fill3DArray(out int[][][] array, int firstDim, int secondDim, int thirdDim)
+        static int[,,] Fill3DArray(int n)
         {
             Random random = new Random();
-            array = new int[firstDim][][];
-            for (int i = 0; i < firstDim; i++)
+            var array = new int[n, n, n];
+            for (int i = 0; i < n; i++)
             {
-                array[i] = new int[secondDim][];
-                for (int j = 0; j < thirdDim; j++)
+                for (int j = 0; j < n; j++)
                 {
-                    array[i][j] = new int[thirdDim];
-                    for (int k = 0; k < thirdDim; k++)
+                    for (int k = 0; k < n; k++)
                     {
-                        array[i][j][k] = random.Next(-100, 100);
+                        array[i, j, k] = random.Next(-100, 100);
                     }
                 }
             }
+            return array;
         }
 
-        static void Print3DArray(int[][][] array, int firstDim, int secondDim, int thirdDim)
+        static void Print3DArray(int[,,] array)
         {
-            for (int i = 0; i < firstDim; i++)
+            for (int i = 0; i < array.GetLength(0); i++)
             {
-                for (int j = 0; j < secondDim; j++)
+                for (int j = 0; j < array.GetLength(1); j++)
                 {
-                    for (int k = 0; k < thirdDim; k++)
+                    for (int k = 0; k < array.GetLength(2); k++)
                     {
-                        Console.Write(array[i][j][k] + " ");
+                        Console.Write(array[i, j, k] + " ");
                     }
                     Console.WriteLine();
                 }
@@ -299,25 +325,24 @@ namespace Task_1._1
             Console.WriteLine("\nStart of 1.1.8 NO POSITIVE\n");
 
             int n = 3;
-            int[][][] array;
-            Fill3DArray(out array, n, n, n);
+            var array = Fill3DArray(n);
             Console.WriteLine("Initial array:");
-            Print3DArray(array, n, n, n);
+            Print3DArray(array);
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < n; j++)
                 {
                     for (int k = 0; k < n; k++)
                     {
-                        if (array[i][j][k] > 0)
+                        if (array[i, j, k] > 0)
                         {
-                            array[i][j][k] = 0;
+                            array[i, j, k] = 0;
                         }
                     }
                 }
             }
             Console.WriteLine("New array:");
-            Print3DArray(array, n, n, n);
+            Print3DArray(array);
 
             Console.WriteLine("\nEnd of 1.1.8 NO POSITIVE\n");
         }
@@ -327,8 +352,7 @@ namespace Task_1._1
             Console.WriteLine("\nStart of 1.1.9 NON-NEGATIVE SUM\n");
 
             int n = 20;
-            int[] array;
-            FillArray(out array, n, -100, 100);
+            var array = FillArray(n, -100, 100);
             Console.WriteLine("Random array:");
             PrintArray(array);
 
@@ -344,10 +368,10 @@ namespace Task_1._1
             Console.WriteLine("\nEnd of 1.1.9 NON-NEGATIVE SUM\n");
         }
 
-        static void Fill2DArray(out int[,] array, int firstDim, int secondDim)
+        static int[,] Fill2DArray(int firstDim, int secondDim)
         {
             Random random = new Random();
-            array = new int[firstDim, secondDim];
+            var array = new int[firstDim, secondDim];
             for (int i = 0; i < firstDim; i++)
             {
                 for (int j = 0; j < secondDim; j++)
@@ -355,6 +379,7 @@ namespace Task_1._1
                     array[i, j] = random.Next(-100, 100);
                 }
             }
+            return array;
         }
 
         static void Print2DArray(int[,] array)
@@ -374,9 +399,8 @@ namespace Task_1._1
         {
             Console.WriteLine("\nStart of 1.1.10 2D ARRAY\n");
 
-            int[,] array;
             int n = 5;
-            Fill2DArray(out array, n, n);
+            var array = Fill2DArray(n, n);
             Console.WriteLine("Random 2D Array:");
             Print2DArray(array);
 
@@ -393,21 +417,6 @@ namespace Task_1._1
             Console.WriteLine("Sum = " + sum);
 
             Console.WriteLine("\nEnd of 1.1.10 2D ARRAY\n");
-        }
-
-        static void Main(string[] args)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Rectangle();
-            Triangle();
-            AnotherTriangle();
-            XMasTree();
-            SumOfNumbers();
-            FontAdjustment();
-            ArrayProcessing();
-            NoPositive();
-            NonNegativeSum();
-            Array2D();
         }
     }
 }
