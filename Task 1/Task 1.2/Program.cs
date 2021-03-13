@@ -83,16 +83,17 @@ namespace Task_1._2
 
             Console.Write("ВВОД: ");
             string text = Console.ReadLine();
-            var result = "";
-            string sentence = "";
-            string separators = ".?!";
+            var result = new StringBuilder();
+            var sentence = new StringBuilder();
+            var separators = ".?!";
             foreach (var word in text.Split(' '))
             {
-                sentence += word + " ";
+                sentence.AppendFormat("{0} ", word);
                 if (separators.Contains(word[word.Length - 1]))
                 {
-                    result += char.ToUpper(sentence[0]) + sentence.Substring(1, sentence.Length - 1);
-                    sentence = "";
+                    sentence[0] = char.ToUpper(sentence[0]);
+                    result.Append(sentence);
+                    sentence.Clear();
                 }
             }
             Console.WriteLine("ВЫВОД: " + result);
