@@ -28,7 +28,7 @@ namespace CustomPaint.Entities
             }
         }
 
-        public double Area
+        public override double Area
         {
             get
             {
@@ -39,7 +39,7 @@ namespace CustomPaint.Entities
 
         public override string ToString()
         {
-            return $"Треугольник Периметр: {Perimeter} Площадь: {Area} Цвет: {Color}";
+            return $"Треугольник {base.ToString()} Периметр: {Perimeter} Площадь: {Area} Цвет: {Color}";
         }
     }
 }

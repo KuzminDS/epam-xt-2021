@@ -1,16 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="CustomPaint.Entities.Circle" Collapsed="true">
-    <Position X="2.25" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
-      <FileName>Entities\Circle.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="CustomPaint.Entities.Figure" Collapsed="true">
     <Position X="5.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>ABAAAAAAAQAAAAAEAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>Entities\Figure.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -24,50 +17,43 @@
   <Class Name="CustomPaint.Entities.Line" Collapsed="true">
     <Position X="2.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAQBAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAQBAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Entities\Line.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CustomPaint.Entities.Point" Collapsed="true">
     <Position X="0.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
       <FileName>Entities\Point.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CustomPaint.Entities.Rectangle" Collapsed="true">
-    <Position X="8" Y="3.75" Width="1.5" />
+    <Position X="8" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAQEAAAA=</HashCode>
+      <HashCode>AAAAAAAADQAAAAAEAAAAAEAAAAAAAAAAAAIAAQAAAAA=</HashCode>
       <FileName>Entities\Rectangle.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CustomPaint.Entities.Ring" Collapsed="true">
     <Position X="4" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAgAAQAAAAAAAAAAAAAAAAAAAAAAgAAAAQAAAAA=</HashCode>
+      <HashCode>AAAIAAAAAQAAAAAEAAAAAAAAAAAAAAQAAAAAAQAAAAA=</HashCode>
       <FileName>Entities\Ring.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="CustomPaint.Entities.Square" Collapsed="true">
-    <Position X="8" Y="2.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAIQAAAAA=</HashCode>
-      <FileName>Entities\Square.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CustomPaint.Entities.Triangle" Collapsed="true">
     <Position X="6" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAAAAAAAAAAAIAAAAAAAAAgAAAAQQAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAAAAAEAAAAAIAAAAAAAAAgAAAAQQAAAAA=</HashCode>
       <FileName>Entities\Triangle.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CustomPaint.Entities.Сircumference" Collapsed="true">
+  <Class Name="CustomPaint.Entities.Circle" Collapsed="true">
     <Position X="2.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAIAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Entities\Сircumference.cs</FileName>
+      <HashCode>AAAIAAAAAQAAAAAEAAAIAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Entities\Circle.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="CustomPaint.Entities.Color" Collapsed="true">

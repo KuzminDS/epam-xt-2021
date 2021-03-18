@@ -24,10 +24,7 @@ namespace CustomPaint
 
         public User GetByName(string name)
         {
-            var user = _users.FirstOrDefault(u => u.Name == name);
-            if (user == null)
-                throw new Exception($"User with name {user.Name} doesn't exist");
-            return user;
+            return _users.FirstOrDefault(u => u.Name == name);
         }
     }
 }

@@ -6,20 +6,44 @@ using System.Threading.Tasks;
 
 namespace CustomPaint.Entities
 {
-    public class Rectangle : Square
+    public class Rectangle : Figure
     {
-        public double B { get; set; }
+        private const double eps = 0.00000001d; 
 
-        public Rectangle(Point centre, double a, double b, Color color) : base(centre, a, color)
+        public double Height { get; }
+        public double Width { get; }
+        public bool IsSquare { get; set; }
+
+
+        public Rectangle(Point centre, double height, Color color) : base(centre, color)
         {
-            B = b;
+            if (height < 0)
+                throw new Exception("The side is negative");
+
+            IsSquare = true;
+            Height = height;
+            Width = height;
+        }
+
+        public Rectangle(Point centre, double height, double width, Color color)
+            : this(centre, height, color)
+        {
+            if (width < 0)
+                throw new Exception("The side is negative");
+
+            IsSquare = (height - width) < eps;
+            Height = height;
+            if (IsSquare)
+                Width = height;
+            else
+                Width = width;
         }
 
         public override double Perimeter
         {
             get
             {
-                return 2 * A + 2 * B;
+                return 2 * Height + 2 * Width;
             }
         }
 
@@ -27,13 +51,15 @@ namespace CustomPaint.Entities
         {
             get
             {
-                return A * B;
+                return Height * Width;
             }
         }
 
         public override string ToString()
         {
-            return $"Прямоугольник Периметр: {Perimeter} Площадь: {Area} Цвет: {Color}";
+            var info = $"{base.ToString()} Периметр: {Perimeter} Площадь: {Area} Цвет: {Color}";
+
+            return IsSquare ? $"Квадрат {info}" : $"Прямоугольник {info}";
         }
     }
 }

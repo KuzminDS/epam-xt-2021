@@ -8,36 +8,35 @@ namespace CustomPaint.Entities
 {
     public class Ring : Figure
     {
-        public Сircumference InsideСircumference { get; }
-        public Сircumference OutsideСircumference { get; }
+        public Circle InnerCircle { get; }
+        public Circle OuterCircle { get; }
 
         public Ring(Point centre, double insideRadius, double outsideRadius, Color color) 
             : base(centre, color)
         {
-            InsideСircumference = new Сircumference(centre, insideRadius, color);
-            OutsideСircumference = new Сircumference(centre, outsideRadius, color);
+            InnerCircle = new Circle(centre, insideRadius, color);
+            OuterCircle = new Circle(centre, outsideRadius, color);
         }
 
         public override double Perimeter
         {
             get
             {
-                return InsideСircumference.Perimeter + OutsideСircumference.Perimeter;
+                return InnerCircle.Perimeter + OuterCircle.Perimeter;
             }
         }
 
-        public double Area
+        public override double Area
         {
             get
             {
-                return Math.PI * OutsideСircumference.Radius * OutsideСircumference.Radius
-                    - Math.PI * InsideСircumference.Radius * InsideСircumference.Radius;
+                return OuterCircle.Area - InnerCircle.Area;
             }
         }
 
         public override string ToString()
         {
-            return $"Кольцо Внешний радиус: {OutsideСircumference.Radius} Внутренний радиус: {InsideСircumference.Radius} Длина: {Perimeter} Площадь: {Area} Цвет: {Color}";
+            return $"Кольцо {base.ToString()} Внешний радиус: {OuterCircle.Radius} Внутренний радиус: {InnerCircle.Radius} Длина: {Perimeter} Площадь: {Area} Цвет: {Color}";
         }
     }
 }

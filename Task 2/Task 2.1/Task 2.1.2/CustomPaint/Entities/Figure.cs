@@ -16,5 +16,12 @@ namespace CustomPaint.Entities
         }
 
         public abstract double Perimeter { get; }
+
+        public abstract double Area { get; }
+
+        public override string ToString()
+        {
+            return $"Центр: X = {Centre.X} Y = {Centre.Y}";
+        }
     }
 }
