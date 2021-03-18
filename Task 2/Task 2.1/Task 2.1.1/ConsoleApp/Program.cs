@@ -13,6 +13,10 @@ namespace ConsoleApp
         {
             Console.WriteLine("Testing of CustomString");
 
+            var s1 = new CustomString("meme");
+            var s2 = new CustomString("aemes");
+            Console.WriteLine(s1.CompareTo(s2));
+
             var str1 = new CustomString(' ');
             Console.WriteLine(str1);
 

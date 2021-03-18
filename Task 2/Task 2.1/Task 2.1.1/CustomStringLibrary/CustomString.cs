@@ -37,6 +37,8 @@ namespace CustomStringLibrary   //task with ** dll works correctly with other pr
         {
         }
 
+        public int Length => _charArray.Length;
+
         public int CompareTo(CustomString other)
         {
             int minLenght = Math.Min(this._charArray.Length, other._charArray.Length);
@@ -49,26 +51,17 @@ namespace CustomStringLibrary   //task with ** dll works correctly with other pr
                     return -1;
             }
 
-            return 0;
+            if (this._charArray.Length > other._charArray.Length)
+                return 1;
+            else if (this._charArray.Length < other._charArray.Length)
+                return -1;
+            else
+                return 0;
         }
 
         public bool Equals(CustomString other)
         {
-            if (this._charArray.Length != other._charArray.Length)
-            {
-                return false;
-            }
-            else
-            {
-                for (int i = 0; i < this._charArray.Length; i++)
-                {
-                    if (this._charArray[i] != other._charArray[i])
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
+            return this.CompareTo(other) == 0;
         }
 
         public CustomString Concat(CustomString other)
@@ -139,5 +132,11 @@ namespace CustomStringLibrary   //task with ** dll works correctly with other pr
 
         public static CustomString operator +(CustomString first, CustomString second)
             => first.Concat(second);
+
+        public static bool operator ==(CustomString first, CustomString second)
+            => first.Equals(second);
+
+        public static bool operator !=(CustomString first, CustomString second)
+            => !first.Equals(second);
     }
 }
