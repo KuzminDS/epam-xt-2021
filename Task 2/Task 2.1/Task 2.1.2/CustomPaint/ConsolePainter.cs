@@ -1,4 +1,6 @@
 ﻿using CustomPaint.Entities;
+using CustomPaint.Validators;
+using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,29 +9,6 @@ using System.Threading.Tasks;
 
 namespace CustomPaint
 {
-    enum Options
-    {
-        None,
-        AddShape,
-        PrintAllShapes,
-        ClearCanvas,
-        Exit,
-        ChangeUser
-    }
-
-    enum Shapes
-    {
-        None,
-        Point,
-        Line,
-        Сircumference,
-        Circle,
-        Ring,
-        Triangle,
-        Square,
-        Rectangle
-    }
-
     public class ConsolePainter
     {
         private readonly Painter _painter;
@@ -47,76 +26,42 @@ namespace CustomPaint
 
             while (!isOver)
             {
-                PrintMenu();
-                Console.Write("ВВОД: ");
-                var option = (Options)Enum.Parse(typeof(Options), Console.ReadLine());
+                Console.WriteLine(string.Join(Environment.NewLine,
+                                              "ВЫВОД: Выберите действие: ",
+                                              "1. Добавить фигуру",
+                                              "2. Вывести фигуры",
+                                              "3. Очистить холст",
+                                              "4. Выход",
+                                              "5. Сменить пользователя"));
 
-                if (option == Options.AddShape)
+                var option = EnterOption();
+
+                switch (option)
                 {
-                    AddShape(user);
-                }
-                else if (option == Options.PrintAllShapes)
-                {
-                    PrintShapes(user);
-                }
-                else if (option == Options.ClearCanvas)
-                {
-                    _painter.ClearShapes(user);
-                    Console.WriteLine("ВЫВОД: Список фигур пуст");
-                }
-                else if (option == Options.Exit)
-                {
-                    Console.WriteLine("ВЫВОД: Выход");
-                    isOver = true;
-                }
-                else if (option == Options.ChangeUser)
-                {
-                    Console.WriteLine("ВЫВОД: Смена пользователя...");
-                    user = ChangeUser();
-                }
-                else
-                {
-                    Console.WriteLine("ВЫВОД: Неверное действие!");
+                    case Options.AddShape:
+                        AddShape(user);
+                        break;
+                    case Options.PrintAllShapes:
+                        PrintShapes(user);
+                        break;
+                    case Options.ClearCanvas:
+                        _painter.ClearShapes(user);
+                        Console.WriteLine("ВЫВОД: Список фигур пуст");
+                        break;
+                    case Options.Exit:
+                        Console.WriteLine("ВЫВОД: Выход");
+                        isOver = true;
+                        break;
+                    case Options.ChangeUser:
+                        Console.WriteLine("ВЫВОД: Смена пользователя...");
+                        user = ChangeUser();
+                        break;
+                    default:
+                        Console.WriteLine("ВЫВОД: Неверное действие!");
+                        break;
                 }
             }
         }
-
-        #region menu
-        private void PrintMenu()
-        {
-            Console.WriteLine(@"ВЫВОД: Выберите действие
-1. Добавить фигуру
-2. Вывести фигуры 
-3. Очистить холст
-4. Выход
-5. Сменить пользователя");
-        }
-
-        private void PrintShapeOptions()
-        {
-            Console.WriteLine(@"ВЫВОД: Выберите тип фигуры:
-1. Точка
-2. Линия
-3. Окружность
-4. Круг
-5. Кольцо
-6. Треугольник
-7. Квадрат
-8. Прямоугольник");
-        }
-
-        private void PrintColorOptions()
-        {
-            Console.WriteLine(@"ВЫВОД: Выберите цвет фигуры:
-1. Желтый
-2. Оранжевый
-3. Красный
-4. Зеленый
-5. Синий
-6. Розовый
-7. Черный");
-        }
-        #endregion
 
         private User ChangeUser()
         {
@@ -137,53 +82,99 @@ namespace CustomPaint
 
         private void AddShape(User user)
         {
-            PrintShapeOptions();
-            Console.Write("ВВОД: ");
-            var shapeOption = (Shapes)Enum.Parse(typeof(Shapes), Console.ReadLine());
+            Console.WriteLine(string.Join(Environment.NewLine,
+                                          "ВЫВОД: Выберите тип фигуры:",
+                                          "1. Точка",
+                                          "2. Линия",
+                                          "3. Круг",
+                                          "4. Кольцо",
+                                          "5. Треугольник",
+                                          "6. Квадрат",
+                                          "7. Прямоугольник"));
+
+            var shapeOption = EnterShape();
 
             var color = EnterColor();
 
-            if (shapeOption == Shapes.Point)
+            ICollection<ValidationFailure> errorList = new List<ValidationFailure>();
+
+            switch (shapeOption)
             {
-                _painter.AddShape(user, EnterPoint(color));
+                case Shapes.Point:
+                    _painter.AddShape(user, EnterPoint(color), out errorList);
+                    break;
+                case Shapes.Line:
+                    _painter.AddShape(user, EnterLine(color), out errorList);
+                    break;
+                case Shapes.Circle:
+                    _painter.AddShape(user, EnterCircle(Shapes.Circle, color), out errorList);
+                    break;
+                case Shapes.Ring:
+                    _painter.AddShape(user, EnterRing(color), out errorList);
+                    break;
+                case Shapes.Triangle:
+                    _painter.AddShape(user, EnterTriangle(color), out errorList);
+                    break;
+                case Shapes.Square:
+                    _painter.AddShape(user, EnterRectangle(Shapes.Square, color), out errorList);
+                    break;
+                case Shapes.Rectangle:
+                    _painter.AddShape(user, EnterRectangle(Shapes.Rectangle, color), out errorList);
+                    break;
+                default:
+                    Console.WriteLine("ВЫВОД: Неправильный выбор");
+                    break;
             }
-            else if (shapeOption == Shapes.Line)
+
+            if (errorList.Any())
             {
-                _painter.AddShape(user, EnterLine(color));
+                foreach (var error in errorList)
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
             }
-            else if (shapeOption == Shapes.Сircumference)
+        }
+
+        private Options EnterOption()
+        {
+            do
             {
-                _painter.AddShape(user, EnterCircle(Shapes.Сircumference, color));
-            }
-            else if (shapeOption == Shapes.Circle)
+                Console.Write("ВВОД: ");
+                var value = Console.ReadLine();
+                if (Enum.TryParse(value, ignoreCase: true, out Options option))
+                    return option;
+                else
+                    Console.WriteLine("ВЫВОД: Неверный ввод. Введите номер действия.");
+
+            } while (true);
+        }
+
+        private Shapes EnterShape()
+        {
+            do
             {
-                _painter.AddShape(user, EnterCircle(Shapes.Circle, color));
-            }
-            else if (shapeOption == Shapes.Ring)
-            {
-                _painter.AddShape(user, EnterRing(color));
-            }
-            else if (shapeOption == Shapes.Triangle)
-            {
-                _painter.AddShape(user, EnterTriangle(color));
-            }
-            else if (shapeOption == Shapes.Square)
-            {
-                _painter.AddShape(user, EnterRectangle(Shapes.Square, color));
-            }
-            else if (shapeOption == Shapes.Rectangle)
-            {
-                _painter.AddShape(user, EnterRectangle(Shapes.Rectangle, color));
-            }
-            else
-            {
-                Console.WriteLine("ВЫВОД: Неправильный выбор");
-            }
+                Console.Write("ВВОД: ");
+                var value = Console.ReadLine();
+                if (Enum.TryParse(value, ignoreCase: true, out Shapes shape))
+                    return shape;
+                else
+                    Console.WriteLine("ВЫВОД: Неверный ввод. Введите номер фигуры.");
+
+            } while (true);
         }
 
         private Color EnterColor()
         {
-            PrintColorOptions();
+            Console.WriteLine(string.Join(Environment.NewLine,
+                                          "ВЫВОД: Выберите цвет фигуры:",
+                                          "1. Желтый",
+                                          "2. Оранжевый",
+                                          "3. Красный",
+                                          "4. Зеленый",
+                                          "5. Синий",
+                                          "6. Розовый",
+                                          "7. Черный"));
+
             do
             {
                 Console.Write("ВВОД: ");
@@ -191,7 +182,7 @@ namespace CustomPaint
                 if (Enum.TryParse(value, ignoreCase: true, out Color color))
                     return color;
                 else
-                    Console.WriteLine("ВЫВОД: Неправильный выбор");
+                    Console.WriteLine("ВЫВОД: Неправильный выбор. Введите номер цвета.");
 
             } while (true);
         }
@@ -248,10 +239,6 @@ namespace CustomPaint
             var centre = EnterPoint(color);
             Console.WriteLine("ВЫВОД: Введите радиус: ");
             var radius = EnterPositiveScalar();
-            if (shape == Shapes.Сircumference)
-            {
-                return new Circle(centre, radius, color, true);
-            }
             return new Circle(centre, radius, color);
         }
 

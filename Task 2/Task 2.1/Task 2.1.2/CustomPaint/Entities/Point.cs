@@ -18,7 +18,7 @@ namespace CustomPaint.Entities
 
         public override string ToString()
         {
-            return $"Точка X = {X} Y = {Y} Цвет: {Color}";
+            return $"Точка X = {X} Y = {Y} {base.ToString()}";
         }
     }
 }

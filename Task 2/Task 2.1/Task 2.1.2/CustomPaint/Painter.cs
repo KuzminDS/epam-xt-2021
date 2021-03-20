@@ -1,4 +1,6 @@
 ﻿using CustomPaint.Entities;
+using CustomPaint.Validators;
+using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,9 +40,40 @@ namespace CustomPaint
             return user.Shapes;
         }
 
-        public void AddShape(User user, GeometricEntity shape)
+        public void AddShape(User user, GeometricEntity shape, out ICollection<ValidationFailure> errorList)
         {
-            user.Shapes.Add(shape);
+            errorList = new List<ValidationFailure>();
+            if (shape is Circle circle)
+            {
+                var validator = new CircleValidator();
+                var results = validator.Validate(circle);
+                if (results.IsValid)
+                    user.Shapes.Add(circle);
+                else
+                    errorList = results.Errors;
+            }
+            else if (shape is Rectangle rectangle)
+            {
+                var validator = new RectangleValidator();
+                var results = validator.Validate(rectangle);
+                if (results.IsValid)
+                    user.Shapes.Add(rectangle);
+                else
+                    errorList = results.Errors;
+            }
+            else if (shape is Triangle triangle)
+            {
+                var validator = new TriangleValidator();
+                var results = validator.Validate(triangle);
+                if (results.IsValid)
+                    user.Shapes.Add(triangle);
+                else
+                    errorList = results.Errors;
+            }
+            else
+            {
+                user.Shapes.Add(shape);
+            }
         }
 
         public void ClearShapes(User user)

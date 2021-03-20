@@ -10,16 +10,10 @@ namespace CustomPaint.Entities
     {
         public double Radius { get; }
 
-        public bool IsСircumference { get; }
-
-        public Circle(Point centre, double radius, Color color, bool isСircumference = false) 
+        public Circle(Point centre, double radius, Color color) 
             : base(centre, color)
         {
-            if (radius < 0)
-                throw new Exception("Radius is negative");
-
             Radius = radius;
-            IsСircumference = isСircumference;
         }
 
         public override double Perimeter
@@ -35,15 +29,13 @@ namespace CustomPaint.Entities
         {
             get
             {
-                return !IsСircumference ? Math.PI * Radius * Radius : 0;
+                return Math.PI * Radius * Radius;
             }
         }
 
         public override string ToString()
         {
-            var info = $"{base.ToString()} Радиус: {Radius} Длина: {Perimeter} Цвет: {Color}";
-            
-            return IsСircumference ? $"Окружность {info}" : $"Круг Площадь: {Area} {info}";
+            return $"Круг Радиус: {Radius} {base.ToString()}";
         }
     }
 }

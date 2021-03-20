@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace CustomPaint.Entities
 {
-    public enum Color { Yellow = 1, Orage, Red, Green, Blue, Purple, Black };
-
     public abstract class GeometricEntity
     {
         public Color Color { get; }
@@ -15,6 +13,11 @@ namespace CustomPaint.Entities
         public GeometricEntity(Color color)
         {
             Color = color;
+        }
+
+        public override string ToString()
+        {
+            return $"Цвет: {Color}";
         }
     }
 }

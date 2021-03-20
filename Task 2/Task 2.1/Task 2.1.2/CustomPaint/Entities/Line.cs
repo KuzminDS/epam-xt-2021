@@ -28,7 +28,7 @@ namespace CustomPaint.Entities
 
         public override string ToString()
         {
-            return $"Линия Длина: {Length} Цвет: {Color}";
+            return $"Линия Длина: {Length} {base.ToString()}";
         }
     }
 }

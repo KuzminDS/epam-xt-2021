@@ -36,7 +36,7 @@ namespace CustomPaint.Entities
 
         public override string ToString()
         {
-            return $"Кольцо {base.ToString()} Внешний радиус: {OuterCircle.Radius} Внутренний радиус: {InnerCircle.Radius} Длина: {Perimeter} Площадь: {Area} Цвет: {Color}";
+            return $"Кольцо Внешний радиус: {OuterCircle.Radius} Внутренний радиус: {InnerCircle.Radius} {base.ToString()}";
         }
     }
 }

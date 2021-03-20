@@ -21,7 +21,7 @@ namespace CustomPaint.Entities
 
         public override string ToString()
         {
-            return $"Центр: X = {Centre.X} Y = {Centre.Y}";
+            return $"Центр: X = {Centre.X} Y = {Centre.Y} Периметр = {Perimeter} Площадь = {Area} {base.ToString()}";
         }
     }
 }

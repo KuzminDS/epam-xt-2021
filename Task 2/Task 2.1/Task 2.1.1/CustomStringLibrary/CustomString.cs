@@ -51,12 +51,12 @@ namespace CustomStringLibrary   //task with ** dll works correctly with other pr
                     return -1;
             }
 
-            if (this._charArray.Length > other._charArray.Length)
-                return 1;
-            else if (this._charArray.Length < other._charArray.Length)
-                return -1;
-            else
-                return 0;
+            return this._charArray.Length.CompareTo(other._charArray.Length);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
         }
 
         public bool Equals(CustomString other)

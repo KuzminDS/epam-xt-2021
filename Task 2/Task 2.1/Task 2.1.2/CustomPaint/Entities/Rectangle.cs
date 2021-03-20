@@ -17,9 +17,6 @@ namespace CustomPaint.Entities
 
         public Rectangle(Point centre, double height, Color color) : base(centre, color)
         {
-            if (height < 0)
-                throw new Exception("The side is negative");
-
             IsSquare = true;
             Height = height;
             Width = height;
@@ -28,9 +25,6 @@ namespace CustomPaint.Entities
         public Rectangle(Point centre, double height, double width, Color color)
             : this(centre, height, color)
         {
-            if (width < 0)
-                throw new Exception("The side is negative");
-
             IsSquare = (height - width) < eps;
             Height = height;
             if (IsSquare)
@@ -57,9 +51,9 @@ namespace CustomPaint.Entities
 
         public override string ToString()
         {
-            var info = $"{base.ToString()} Периметр: {Perimeter} Площадь: {Area} Цвет: {Color}";
+            var info = $"Ширина = {Width} {base.ToString()}";
 
-            return IsSquare ? $"Квадрат {info}" : $"Прямоугольник {info}";
+            return IsSquare ? $"Квадрат {info}" : $"Прямоугольник Длина = {Height} {info}";
         }
     }
 }
