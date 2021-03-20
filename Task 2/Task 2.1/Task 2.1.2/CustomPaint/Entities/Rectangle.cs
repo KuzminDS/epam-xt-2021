@@ -8,8 +8,6 @@ namespace CustomPaint.Entities
 {
     public class Rectangle : Figure
     {
-        private const double eps = 0.00000001d; 
-
         public double Height { get; }
         public double Width { get; }
         public bool IsSquare { get; set; }
@@ -25,7 +23,7 @@ namespace CustomPaint.Entities
         public Rectangle(Point centre, double height, double width, Color color)
             : this(centre, height, color)
         {
-            IsSquare = (height - width) < eps;
+            IsSquare = height == width;
             Height = height;
             if (IsSquare)
                 Width = height;
