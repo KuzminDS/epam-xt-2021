@@ -9,9 +9,11 @@ namespace Game.Entities.Monsters
 {
     class Skeleton : IMonster
     {
-        public void Move()
+        public Point Position { get; private set; }
+
+        public void Move(Point newPosition)
         {
-            throw new NotImplementedException();
+            Position = newPosition;
         }
     }
 }

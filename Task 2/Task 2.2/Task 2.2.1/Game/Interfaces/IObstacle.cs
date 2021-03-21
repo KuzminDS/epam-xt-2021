@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game.Interfaces
 {
-    interface IObstacle
+    interface IObstacle: ILocated
     {
     }
 }

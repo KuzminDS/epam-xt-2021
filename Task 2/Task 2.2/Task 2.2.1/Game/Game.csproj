@@ -49,9 +49,13 @@
     <Compile Include="Entities\Obstacles\Tree.cs" />
     <Compile Include="Entities\Obstacles\Water.cs" />
     <Compile Include="Entities\Player.cs" />
+    <Compile Include="Entities\Point.cs" />
     <Compile Include="Entities\Treasures\Coin.cs" />
     <Compile Include="Entities\Treasures\Diamond.cs" />
     <Compile Include="Entities\Treasures\Ruby.cs" />
+    <Compile Include="GameLogic.cs" />
+    <Compile Include="Interfaces\ILocated.cs" />
+    <Compile Include="Interfaces\IMovable.cs" />
     <Compile Include="Interfaces\ITreasure.cs" />
     <Compile Include="Interfaces\IObstacle.cs" />
     <Compile Include="Interfaces\IMonster.cs" />

@@ -9,7 +9,9 @@ namespace Game.Entities.Treasures
 {
     class Coin : ITreasure
     {
-        public void AddWealth()
+        public Point Position { get; private set; }
+
+        public void AddWealth(Player player)
         {
             throw new NotImplementedException();
         }

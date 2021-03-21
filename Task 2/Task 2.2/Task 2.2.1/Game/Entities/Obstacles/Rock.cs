@@ -9,5 +9,6 @@ namespace Game.Entities.Obstacles
 {
     class Rock : IObstacle
     {
+        public Point Position { get; private set; }
     }
 }
