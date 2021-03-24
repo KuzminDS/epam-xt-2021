@@ -15,12 +15,15 @@ namespace WeakestLink
             Console.WriteLine("ВЫВОД: Введите, какой по счету человек будет вычеркнут каждый раунд:");
             var removingNumber = EnterNumber();
 
-            var people = CreateList(number).ToList();
-
             if (number >= removingNumber)
+            {
+                var people = CreateList(number).ToList();
                 StartGame(people, removingNumber);
+            }
             else
+            {
                 Console.WriteLine("ВЫВОД: Невозможно вычеркнуть человека с номером больше, чем есть в кругу.");
+            }
         }
 
         private static void StartGame(ICollection<Person> people, int removingNumber)
