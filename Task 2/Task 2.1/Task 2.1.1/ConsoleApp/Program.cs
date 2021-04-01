@@ -40,13 +40,14 @@ namespace ConsoleApp
             Console.WriteLine(str5.LastIndexOf('l'));
             Console.WriteLine(str5.Contains('l'));
 
-            char[] charArray = str5.ConvertToCharArray();
+            char[] charArray = str5.ToCharArray();
             for (int i = 0; i < charArray.Length; i++)
             {
                 Console.Write(charArray[i]);
             }
             Console.WriteLine();
 
+            str4 += new CustomString(" 676 mem");
             Console.WriteLine(str4);
             Console.WriteLine("Колличество слов = " + str4.GetCountOfWords());
 

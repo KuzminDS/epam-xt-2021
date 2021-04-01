@@ -45,10 +45,10 @@ namespace CustomStringLibrary   //task with ** dll works correctly with other pr
 
             for (int i = 0; i < minLenght; i++)
             {
-                if (this._charArray[i] > other._charArray[i])
-                    return 1;
-                else if (this._charArray[i] < other._charArray[i])
-                    return -1;
+                var result = this._charArray[i].CompareTo(other._charArray[i]);
+
+                if (result != 0)
+                    return result;
             }
 
             return this._charArray.Length.CompareTo(other._charArray.Length);
@@ -56,7 +56,11 @@ namespace CustomStringLibrary   //task with ** dll works correctly with other pr
 
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            if (obj == null || GetType() != obj.GetType()) 
+                return false;
+
+            CustomString str = obj as CustomString;
+            return this.Equals(str); 
         }
 
         public bool Equals(CustomString other)
@@ -97,7 +101,7 @@ namespace CustomStringLibrary   //task with ** dll works correctly with other pr
             return IndexOf(value) != -1;
         }
 
-        public char[] ConvertToCharArray()
+        public char[] ToCharArray()
         {
             var result = new char[_charArray.Length];
             Array.Copy(_charArray, result, _charArray.Length);
@@ -109,10 +113,10 @@ namespace CustomStringLibrary   //task with ** dll works correctly with other pr
             int count = 0;
             for (int i = 0; i < _charArray.Length; i++)
             {
-                if(char.IsLetter(_charArray[i]))
+                if(IsLetterOrDigit(_charArray[i]))
                 {
                     count++;
-                    while (i < _charArray.Length && char.IsLetter(_charArray[i]))
+                    while (i < _charArray.Length && IsLetterOrDigit(_charArray[i]))
                         i++;
                 }
             }
@@ -138,5 +142,10 @@ namespace CustomStringLibrary   //task with ** dll works correctly with other pr
 
         public static bool operator !=(CustomString first, CustomString second)
             => !first.Equals(second);
+
+        private bool IsLetterOrDigit(char symbol)
+        {
+            return char.IsLetter(symbol) || char.IsDigit(symbol);
+        }
     }
 }
