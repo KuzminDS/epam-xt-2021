@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game.Entities
 {
-    class Point : IEquatable<Point>
+    public class Point : IEquatable<Point>
     {
         public double X { get; set; }
         public double Y { get; set; }
@@ -18,7 +18,11 @@ namespace Game.Entities
 
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            Point p = obj as Point;
+            return this.Equals(p);
         }
 
         public static bool operator ==(Point first, Point second)

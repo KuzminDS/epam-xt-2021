@@ -10,67 +10,41 @@ namespace Game
     class GameLogic
     {
         private Map _map;
-        private bool _isWon;
-        private bool _isLost;
+        private GameOverState _gameOverState;
 
         public void Start()
         {
             InitializeComponents();
 
-            _isWon = false;
-            _isLost = false;
+            RunGame();
+        }
 
-            while (!_isWon && !_isLost)
+        private void RunGame()
+        {
+            while (_gameOverState == GameOverState.None)
             {
                 var newPosition = new Point(); //logic for getting user moves was missed
 
-                CheckMonsterCollision(_map.Player.Position);
+                _gameOverState = Monster.CheckMonsterCollision(_map, _map.Player.Position);
 
-                if (!CheckObstacleCollision(newPosition))
+                if (!Obstacle.CheckObstacleCollision(_map, newPosition))
                     _map.Player.Move(newPosition);
 
-                CheckMonsterCollision(newPosition);
+                _gameOverState = Monster.CheckMonsterCollision(_map, newPosition);
 
-                CheckTreasureCollision(newPosition);
+                _gameOverState = Treasure.CheckTreasureCollision(_map, newPosition);
 
                 MoveMonsters();
             }
         }
 
-        private bool CheckObstacleCollision(Point newPosition)
-        {
-            var isOutsideHorizontalBound = newPosition.X < _map.Width || newPosition.X > _map.Width;
-            var isOutsideVerticalBound = newPosition.Y < _map.Height || newPosition.Y > _map.Height;
-            var isOnObstacle = _map.Obstacles.Any(obstacle => obstacle.Position == newPosition);
-
-            return isOutsideHorizontalBound || isOutsideVerticalBound || isOnObstacle;
-        }
-
-        private void CheckMonsterCollision(Point newPosition)
-        {
-            _isLost = _map.Monsters.Any(m => m.Position == newPosition);
-        }
-
-        private void CheckTreasureCollision(Point newPosition)
-        {
-            var treasure = _map.Treasures.FirstOrDefault(t => t.Position == newPosition);
-
-            if (treasure != null)
-            {
-                treasure.AddWealth(_map.Player);
-                _map.Treasures.Remove(treasure);
-
-                if (_map.Treasures.Count == 0)
-                    _isWon = true;
-            }
-        }
 
         private void MoveMonsters()
         {
             foreach (var monster in _map.Monsters)
             {
                 var newPos = new Point(); //getting a new random valid position for monster
-                if (!CheckObstacleCollision(newPos))
+                if (!Obstacle.CheckObstacleCollision(_map, newPos))
                     monster.Move(newPos);
             }
         }
@@ -82,6 +56,7 @@ namespace Game
             InitializeMonsters();
             InitializeTreasures();
             InitializePlayer();
+            _gameOverState = GameOverState.None;
         }
 
         private void InitializePlayer()

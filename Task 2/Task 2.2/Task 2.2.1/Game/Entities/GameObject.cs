@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Game.Entities
 {
-    public class Player : MovableObject
+    public abstract class GameObject
     {
-        public override void Move(Point newPosition)
-        {
-            Position = newPosition;
-        }
+        public Point Position { get; protected set; }
     }
 }

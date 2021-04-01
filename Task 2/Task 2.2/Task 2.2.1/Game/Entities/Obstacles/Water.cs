@@ -1,5 +1,4 @@
-﻿using Game.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game.Entities.Obstacles
 {
-    class Water : IObstacle
+    public class Water : Obstacle
     {
-        public Point Position { get; private set; }
     }
 }

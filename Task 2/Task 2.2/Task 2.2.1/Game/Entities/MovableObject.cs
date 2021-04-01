@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game.Interfaces
+namespace Game.Entities
 {
-    interface IMonster : IMovable
+    public abstract class MovableObject : GameObject
     {
+        public abstract void Move(Point newPosition);
     }
 }

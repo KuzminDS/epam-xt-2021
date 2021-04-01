@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game.Interfaces
+namespace Game
 {
-    interface IObstacle: ILocated
+    public enum GameOverState
     {
-    }
+        None,
+        Lost,
+        Won
+    };
 }
