@@ -13,6 +13,9 @@ namespace CustomPaint.Entities
 
         public Line(Point p1, Point p2, Color color) : base(color)
         {
+            if (p1.X == p2.X && p1.Y == p2.Y)
+                throw new Exception("Линия не может точкой p1 == p2");
+
             P1 = p1;
             P2 = p2;
         }
@@ -21,8 +24,9 @@ namespace CustomPaint.Entities
         { 
             get
             {
-                return Math.Sqrt((P2.X - P1.X) * (P2.X - P1.X) 
-                    + (P2.Y - P1.Y) * (P2.Y - P1.Y));
+                var xDif = (P2.X - P1.X);
+                var yDif = (P2.Y - P1.Y);
+                return Math.Sqrt(xDif * xDif + yDif * yDif);
             }
         }
 

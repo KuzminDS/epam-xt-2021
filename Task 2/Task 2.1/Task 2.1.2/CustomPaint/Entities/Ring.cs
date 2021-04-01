@@ -19,20 +19,10 @@ namespace CustomPaint.Entities
         }
 
         public override double Perimeter
-        {
-            get
-            {
-                return InnerCircle.Perimeter + OuterCircle.Perimeter;
-            }
-        }
+            => InnerCircle.Perimeter + OuterCircle.Perimeter;
 
         public override double Area
-        {
-            get
-            {
-                return OuterCircle.Area - InnerCircle.Area;
-            }
-        }
+            => OuterCircle.Area - InnerCircle.Area;
 
         public override string ToString()
         {

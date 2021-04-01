@@ -16,6 +16,21 @@ namespace CustomPaint.Entities
             Y = y;
         }
 
+        public static Point GetAverage(params Point[] points)
+        {
+            double x = 0;
+            double y = 0;
+            foreach (var point in points)
+            {
+                x += point.X;
+                y += point.Y;
+            }
+            x /= points.Length;
+            y /= points.Length;
+
+            return new Point(x, y, points[0].Color);
+        }
+
         public override string ToString()
         {
             return $"Точка X = {X} Y = {Y} {base.ToString()}";

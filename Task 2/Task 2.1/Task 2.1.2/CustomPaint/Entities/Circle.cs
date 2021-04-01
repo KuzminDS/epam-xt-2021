@@ -13,25 +13,15 @@ namespace CustomPaint.Entities
         public Circle(Point centre, double radius, Color color) 
             : base(centre, color)
         {
+            if (radius <= 0)
+                throw new Exception("Радиус не может быть отрицательным");
+
             Radius = radius;
         }
 
-        public override double Perimeter
-        {
-            get
-            {
-                return 2 * Math.PI * Radius;
-            }
-        }
+        public override double Perimeter => 2 * Math.PI * Radius;
 
-
-        public override double Area
-        {
-            get
-            {
-                return Math.PI * Radius * Radius;
-            }
-        }
+        public override double Area => Math.PI * Radius * Radius;
 
         public override string ToString()
         {

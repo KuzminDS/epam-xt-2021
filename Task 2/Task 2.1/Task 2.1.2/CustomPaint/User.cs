@@ -9,8 +9,14 @@ namespace CustomPaint
 {
     public class User
     {
-        public string Name { get; set; }
+        public User(string name, List<GeometricEntity> shapes)
+        {
+            Name = name;
+            Shapes = shapes;
+        }
 
-        public List<GeometricEntity> Shapes { get; set; }
+        public string Name { get; }
+
+        public List<GeometricEntity> Shapes { get; }
     }
 }
