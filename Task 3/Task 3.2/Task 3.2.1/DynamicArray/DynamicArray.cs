@@ -88,9 +88,6 @@ namespace DynamicArray
                 Capacity = (Length + collection.Count()) * 2;
 
                 _array = GetArrayCopy(_array, Capacity, Length);
-                //var newArray = new T[Capacity];
-                //Array.Copy(_array, newArray, Length);
-                //_array = newArray;
             }
 
             Array.Copy(collection.ToArray(), 0, _array, Length, collection.Count());
