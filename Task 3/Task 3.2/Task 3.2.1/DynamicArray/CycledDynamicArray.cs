@@ -24,46 +24,15 @@ namespace DynamicArray
         {
         }
 
-        public new IEnumerator<T> GetEnumerator()
+        public override IEnumerator<T> GetEnumerator()
         {
-            return new Enumerator(_array);
-        }
+            var count = _array.Length;
+            var index = 0;
 
-        public class Enumerator : IEnumerator<T>
-        {
-            private readonly T[] _collection;
-            private int _curIndex;
-            private T _curObject;
-
-            public Enumerator(T[] collection)
+            while (true)
             {
-                _collection = collection;
-                _curIndex = -1;
-                _curObject = default(T);
-            }
-
-            public T Current => _curObject;
-
-            object IEnumerator.Current => Current;
-
-            public void Dispose()
-            {
-            }
-
-            public bool MoveNext()
-            {
-                if (++_curIndex >= _collection.Length)
-                    _curIndex = 0;
-
-                _curObject = _collection[_curIndex];
-
-                return true;
-            }
-
-            public void Reset()
-            {
-                _curIndex = -1;
-                _curObject = default(T);
+                yield return _array[index];
+                index = (index + 1) % count;
             }
         }
     }

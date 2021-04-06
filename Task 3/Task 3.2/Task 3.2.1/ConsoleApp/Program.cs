@@ -30,7 +30,8 @@ namespace ConsoleApp
 
             Console.WriteLine(newArray[-2]);
 
-            newArray.Remove(2);
+            newArray.Remove(1);
+            newArray.Remove(6);
 
             foreach (var item in newArray)
             {
@@ -55,6 +56,8 @@ namespace ConsoleApp
 
 
             var cycledArray = new CycledDynamicArray<int>(array);
+
+            Console.WriteLine("Cycled array:");
 
             //foreach (var item in cycledArray) //inf loop
             //{

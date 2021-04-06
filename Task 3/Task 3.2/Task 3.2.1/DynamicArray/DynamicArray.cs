@@ -14,6 +14,12 @@ namespace DynamicArray
 
         public int Length { get; private set; }
 
+
+        /// <summary>
+        /// Capacity represents the actual size of the array.
+        /// Changing this property can lead to losing data.
+        /// Before changing it use the EnsureCapacity method
+        /// </summary>
         public int Capacity
         {
             get { return _capacity; }
@@ -68,13 +74,20 @@ namespace DynamicArray
 
         public DynamicArray(IEnumerable<T> collection)
         {
-            Capacity = collection.Count();
-            Length = Capacity;
-            _array = new T[Capacity];
+            _array = collection.ToArray();
 
-            Array.Copy(collection.ToArray(), _array, Capacity);
+            Capacity = _array.Length;
+            Length = _array.Length;
         }
 
+
+        /// <summary>
+        /// Method returns true if new capacity doesn't lead to losing data otherwise returns fasle
+        /// </summary>
+        public bool EnsureCapacity(int newCapacity)
+        {
+            return newCapacity >= Length;
+        }
 
         public void Add(T item)
         {
@@ -83,15 +96,17 @@ namespace DynamicArray
 
         public void AddRange(IEnumerable<T> collection)
         {
-            if (Length + collection.Count() > Capacity)
+            var tempArray = collection.ToArray();
+
+            if (Length + tempArray.Length > Capacity)
             {
-                Capacity = (Length + collection.Count()) * 2;
+                Capacity = (Length + tempArray.Length) * 2;
 
                 _array = GetArrayCopy(_array, Capacity, Length);
             }
 
-            Array.Copy(collection.ToArray(), 0, _array, Length, collection.Count());
-            Length += collection.Count();
+            Array.Copy(tempArray, 0, _array, Length, tempArray.Length);
+            Length += tempArray.Length;
         }
 
         public bool Remove(T item)
@@ -101,8 +116,7 @@ namespace DynamicArray
             if (itemIndex == -1)
                 return false;
 
-            for (int i = itemIndex; i < Length - 1; i++)
-                _array[i] = _array[i + 1];
+            Array.Copy(_array, itemIndex + 1, _array, itemIndex, Length - 1 - itemIndex);
 
             _array[Length - 1] = default(T);
             Length--;
@@ -129,7 +143,7 @@ namespace DynamicArray
             Length++;
         }
 
-        public IEnumerator<T> GetEnumerator()
+        public virtual IEnumerator<T> GetEnumerator()
         {
             for (int i = 0; i < Length; i++)
             {
