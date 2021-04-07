@@ -6,20 +6,15 @@ using System.Threading.Tasks;
                                                    
 namespace SuperArray                               
 {                                                  
-    public static class SuperArray                 
+    public static class NumberArrayExtensions                 
     {
         #region ByteArrayExtensions
-        public static int GetArraySum(this byte[] array)
+        public static int GetSum(this byte[] array)
         {
             if (array == null)
                 throw new NullReferenceException("Argument cannot be null");
 
-            int sum = 0;
-
-            foreach (var item in array)
-                sum += item;
-
-            return sum;
+            return array.Sum(e => e);
         }
 
         public static byte GetMean(this byte[] array)
@@ -31,7 +26,7 @@ namespace SuperArray
                 throw new ArgumentException("Array is empty");
 
 
-            return (byte)(array.GetArraySum() / array.Length);
+            return (byte)(array.GetSum() / array.Length);
         }
 
         public static byte GetMode(this byte[] array)
@@ -42,41 +37,20 @@ namespace SuperArray
             if (array.Length == 0)
                 throw new ArgumentException("Array is empty");
 
-            var dictionary = new Dictionary<byte, int>();
-
-            foreach (var item in array)
-            {
-                if (!dictionary.ContainsKey(item))
-                    dictionary.Add(item, GetValueCount(array, item));
-            }
-
-            return dictionary.OrderByDescending(pair => pair.Value).FirstOrDefault().Key;
-        }
-
-        private static int GetValueCount(byte[] array, byte value)
-        {
-            var count = 0;
-            for (int i = 0; i < array.Length; i++)
-            {
-                if (array[i] == value)
-                    count++;
-            }
-            return count;
+            return array.GroupBy(e => e)
+                        .OrderByDescending(g => g.Count())
+                        .FirstOrDefault()
+                        .Key;
         }
         #endregion
 
         #region SbyteArrayExtensions
-        public static int GetArraySum(this sbyte[] array)
+        public static int GetSum(this sbyte[] array)
         {
             if (array == null)
                 throw new NullReferenceException("Argument cannot be null");
 
-            int sum = 0;
-
-            foreach (var item in array)
-                sum += item;
-
-            return sum;
+            return array.Sum(e => e);
         }
 
         public static sbyte GetMean(this sbyte[] array)
@@ -88,7 +62,7 @@ namespace SuperArray
                 throw new ArgumentException("Array is empty");
 
 
-            return (sbyte)(array.GetArraySum() / array.Length);
+            return (sbyte)(array.GetSum() / array.Length);
         }
 
         public static sbyte GetMode(this sbyte[] array)
@@ -99,41 +73,20 @@ namespace SuperArray
             if (array.Length == 0)
                 throw new ArgumentException("Array is empty");
 
-            var dictionary = new Dictionary<sbyte, int>();
-
-            foreach (var item in array)
-            {
-                if (!dictionary.ContainsKey(item))
-                    dictionary.Add(item, GetValueCount(array, item));
-            }
-
-            return dictionary.OrderByDescending(pair => pair.Value).FirstOrDefault().Key;
-        }
-
-        private static int GetValueCount(sbyte[] array, sbyte value)
-        {
-            var count = 0;
-            for (int i = 0; i < array.Length; i++)
-            {
-                if (array[i] == value)
-                    count++;
-            }
-            return count;
+            return array.GroupBy(e => e)
+                        .OrderByDescending(g => g.Count())
+                        .FirstOrDefault()
+                        .Key;
         }
         #endregion
 
         #region ShortArrayExtensions
-        public static int GetArraySum(this short[] array)
+        public static int GetSum(this short[] array)
         {
             if (array == null)
                 throw new NullReferenceException("Argument cannot be null");
 
-            int sum = 0;
-
-            foreach (var item in array)
-                sum += item;
-
-            return sum;
+            return array.Sum(e => e);
         }
 
         public static short GetMean(this short[] array)
@@ -145,7 +98,7 @@ namespace SuperArray
                 throw new ArgumentException("Array is empty");
 
 
-            return (short)(array.GetArraySum() / array.Length);
+            return (short)(array.GetSum() / array.Length);
         }
 
         public static short GetMode(this short[] array)
@@ -156,41 +109,20 @@ namespace SuperArray
             if (array.Length == 0)
                 throw new ArgumentException("Array is empty");
 
-            var dictionary = new Dictionary<short, int>();
-
-            foreach (var item in array)
-            {
-                if (!dictionary.ContainsKey(item))
-                    dictionary.Add(item, GetValueCount(array, item));
-            }
-
-            return dictionary.OrderByDescending(pair => pair.Value).FirstOrDefault().Key;
-        }
-
-        private static int GetValueCount(short[] array, short value)
-        {
-            var count = 0;
-            for (int i = 0; i < array.Length; i++)
-            {
-                if (array[i] == value)
-                    count++;
-            }
-            return count;
+            return array.GroupBy(e => e)
+                        .OrderByDescending(g => g.Count())
+                        .FirstOrDefault()
+                        .Key;
         }
         #endregion
 
         #region UshortArrayExtensions
-        public static int GetArraySum(this ushort[] array)
+        public static int GetSum(this ushort[] array)
         {
             if (array == null)
                 throw new NullReferenceException("Argument cannot be null");
 
-            int sum = 0;
-
-            foreach (var item in array)
-                sum += item;
-
-            return sum;
+            return array.Sum(e => e);
         }
 
         public static ushort GetMean(this ushort[] array)
@@ -202,7 +134,7 @@ namespace SuperArray
                 throw new ArgumentException("Array is empty");
 
 
-            return (ushort)(array.GetArraySum() / array.Length);
+            return (ushort)(array.GetSum() / array.Length);
         }
 
         public static ushort GetMode(this ushort[] array)
@@ -213,41 +145,20 @@ namespace SuperArray
             if (array.Length == 0)
                 throw new ArgumentException("Array is empty");
 
-            var dictionary = new Dictionary<ushort, int>();
-
-            foreach (var item in array)
-            {
-                if (!dictionary.ContainsKey(item))
-                    dictionary.Add(item, GetValueCount(array, item));
-            }
-
-            return dictionary.OrderByDescending(pair => pair.Value).FirstOrDefault().Key;
-        }
-
-        private static int GetValueCount(ushort[] array, ushort value)
-        {
-            var count = 0;
-            for (int i = 0; i < array.Length; i++)
-            {
-                if (array[i] == value)
-                    count++;
-            }
-            return count;
+            return array.GroupBy(e => e)
+                        .OrderByDescending(g => g.Count())
+                        .FirstOrDefault()
+                        .Key;
         }
         #endregion
 
         #region UintArrayExtensions
-        public static uint GetArraySum(this uint[] array)
+        public static uint GetSum(this uint[] array)
         {
             if (array == null)
                 throw new NullReferenceException("Argument cannot be null");
 
-            uint sum = 0;
-
-            foreach (var item in array)
-                sum += item;
-
-            return sum;
+            return (uint)array.Sum(e => e);
         }
 
         public static uint GetMean(this uint[] array)
@@ -259,7 +170,7 @@ namespace SuperArray
                 throw new ArgumentException("Array is empty");
 
 
-            return array.GetArraySum() / (uint)array.Length;
+            return array.GetSum() / (uint)array.Length;
         }
 
         public static uint GetMode(this uint[] array)
@@ -270,31 +181,15 @@ namespace SuperArray
             if (array.Length == 0)
                 throw new ArgumentException("Array is empty");
 
-            var dictionary = new Dictionary<uint, int>();
-
-            foreach (var item in array)
-            {
-                if (!dictionary.ContainsKey(item))
-                    dictionary.Add(item, GetValueCount(array, item));
-            }
-
-            return dictionary.OrderByDescending(pair => pair.Value).FirstOrDefault().Key;
-        }
-
-        private static int GetValueCount(uint[] array, uint value)
-        {
-            var count = 0;
-            for (int i = 0; i < array.Length; i++)
-            {
-                if (array[i] == value)
-                    count++;
-            }
-            return count;
+            return array.GroupBy(e => e)
+                        .OrderByDescending(g => g.Count())
+                        .FirstOrDefault()
+                        .Key;
         }
         #endregion
 
         #region IntArrayExtensions
-        public static int GetArraySum(this int[] array)
+        public static int GetSum(this int[] array)
         {
             if (array == null)
                 throw new NullReferenceException("Argument cannot be null");
@@ -322,31 +217,15 @@ namespace SuperArray
             if (array.Length == 0)
                 throw new ArgumentException("Array is empty");
 
-            var dictionary = new Dictionary<int, int>();
-
-            foreach (var item in array)
-            {
-                if (!dictionary.ContainsKey(item))
-                    dictionary.Add(item, GetValueCount(array, item));
-            }
-
-            return dictionary.OrderByDescending(pair => pair.Value).FirstOrDefault().Key;
-        }
-
-        private static int GetValueCount(int[] array, int value)
-        {
-            var count = 0;
-            for (int i = 0; i < array.Length; i++)
-            {
-                if (array[i] == value)
-                    count++;
-            }
-            return count;
+            return array.GroupBy(e => e)
+                        .OrderByDescending(g => g.Count())
+                        .FirstOrDefault()
+                        .Key;
         }
         #endregion
 
         #region UlongArrayExtensions
-        public static ulong GetArraySum(this ulong[] array)
+        public static ulong GetSum(this ulong[] array)
         {
             if (array == null)
                 throw new NullReferenceException("Argument cannot be null");
@@ -368,7 +247,7 @@ namespace SuperArray
                 throw new ArgumentException("Array is empty");
 
 
-            return array.GetArraySum() / (ulong)array.Length;
+            return array.GetSum() / (ulong)array.Length;
         }
 
         public static ulong GetMode(this ulong[] array)
@@ -379,41 +258,20 @@ namespace SuperArray
             if (array.Length == 0)
                 throw new ArgumentException("Array is empty");
 
-            var dictionary = new Dictionary<ulong, int>();
-
-            foreach (var item in array)
-            {
-                if (!dictionary.ContainsKey(item))
-                    dictionary.Add(item, GetValueCount(array, item));
-            }
-
-            return dictionary.OrderByDescending(pair => pair.Value).FirstOrDefault().Key;
-        }
-
-        private static int GetValueCount(ulong[] array, ulong value)
-        {
-            var count = 0;
-            for (int i = 0; i < array.Length; i++)
-            {
-                if (array[i] == value)
-                    count++;
-            }
-            return count;
+            return array.GroupBy(e => e)
+                        .OrderByDescending(g => g.Count())
+                        .FirstOrDefault()
+                        .Key;
         }
         #endregion
 
         #region LongArrayExtensions
-        public static long GetArraySum(this long[] array)
+        public static long GetSum(this long[] array)
         {
             if (array == null)
                 throw new NullReferenceException("Argument cannot be null");
 
-            long sum = 0;
-
-            foreach (var item in array)
-                sum += item;
-
-            return sum;
+            return array.Sum(e => e);
         }
 
         public static long GetMean(this long[] array)
@@ -425,7 +283,7 @@ namespace SuperArray
                 throw new ArgumentException("Array is empty");
 
 
-            return array.GetArraySum() / array.Length;
+            return array.GetSum() / array.Length;
         }
 
         public static long GetMode(this long[] array)
@@ -436,31 +294,15 @@ namespace SuperArray
             if (array.Length == 0)
                 throw new ArgumentException("Array is empty");
 
-            var dictionary = new Dictionary<long, int>();
-
-            foreach (var item in array)
-            {
-                if (!dictionary.ContainsKey(item))
-                    dictionary.Add(item, GetValueCount(array, item));
-            }
-
-            return dictionary.OrderByDescending(pair => pair.Value).FirstOrDefault().Key;
-        }
-
-        private static int GetValueCount(long[] array, long value)
-        {
-            var count = 0;
-            for (int i = 0; i < array.Length; i++)
-            {
-                if (array[i] == value)
-                    count++;
-            }
-            return count;
+            return array.GroupBy(e => e)
+                        .OrderByDescending(g => g.Count())
+                        .FirstOrDefault()
+                        .Key;
         }
         #endregion
 
         #region FloatArrayExtensions
-        public static float GetArraySum(this float[] array)
+        public static float GetSum(this float[] array)
         {
             if (array == null)
                 throw new NullReferenceException("Argument cannot be null");
@@ -488,31 +330,15 @@ namespace SuperArray
             if (array.Length == 0)
                 throw new ArgumentException("Array is empty");
 
-            var dictionary = new Dictionary<float, int>();
-
-            foreach (var item in array)
-            {
-                if (!dictionary.ContainsKey(item))
-                    dictionary.Add(item, GetValueCount(array, item));
-            }
-
-            return dictionary.OrderByDescending(pair => pair.Value).FirstOrDefault().Key;
-        }
-
-        private static int GetValueCount(float[] array, float value)
-        {
-            var count = 0;
-            for (int i = 0; i < array.Length; i++)
-            {
-                if (array[i] == value)
-                    count++;
-            }
-            return count;
+            return array.GroupBy(e => e)
+                        .OrderByDescending(g => g.Count())
+                        .FirstOrDefault()
+                        .Key;
         }
         #endregion
 
         #region DoubleArrayExtensions
-        public static double GetArraySum(this double[] array)
+        public static double GetSum(this double[] array)
         {
             if (array == null)
                 throw new NullReferenceException("Argument cannot be null");
@@ -540,31 +366,15 @@ namespace SuperArray
             if (array.Length == 0)
                 throw new ArgumentException("Array is empty");
 
-            var dictionary = new Dictionary<double, int>();
-
-            foreach (var item in array)
-            {
-                if (!dictionary.ContainsKey(item))
-                    dictionary.Add(item, GetValueCount(array, item));
-            }
-
-            return dictionary.OrderByDescending(pair => pair.Value).FirstOrDefault().Key;
-        }
-
-        private static int GetValueCount(double[] array, double value)
-        {
-            var count = 0;
-            for (int i = 0; i < array.Length; i++)
-            {
-                if (array[i] == value)
-                    count++;
-            }
-            return count;
+            return array.GroupBy(e => e)
+                        .OrderByDescending(g => g.Count())
+                        .FirstOrDefault()
+                        .Key;
         }
         #endregion
 
         #region DecimalArrayExtensions
-        public static decimal GetArraySum(this decimal[] array)
+        public static decimal GetSum(this decimal[] array)
         {
             if (array == null)
                 throw new NullReferenceException("Argument cannot be null");
@@ -592,26 +402,10 @@ namespace SuperArray
             if (array.Length == 0)
                 throw new ArgumentException("Array is empty");
 
-            var dictionary = new Dictionary<decimal, int>();
-
-            foreach (var item in array)
-            {
-                if (!dictionary.ContainsKey(item))
-                    dictionary.Add(item, GetValueCount(array, item));
-            }
-
-            return dictionary.OrderByDescending(pair => pair.Value).FirstOrDefault().Key;
-        }
-
-        private static int GetValueCount(decimal[] array, decimal value)
-        {
-            var count = 0;
-            for (int i = 0; i < array.Length; i++)
-            {
-                if (array[i] == value)
-                    count++;
-            }
-            return count;
+            return array.GroupBy(e => e)
+                        .OrderByDescending(g => g.Count())
+                        .FirstOrDefault()
+                        .Key;
         }
         #endregion
     }

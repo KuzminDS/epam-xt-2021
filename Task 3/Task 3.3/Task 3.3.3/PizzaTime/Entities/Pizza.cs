@@ -15,7 +15,7 @@ namespace PizzaTime.Entities
         public Pizza(Pizzas name, int minutes)
         {
             Name = name;
-            CookingTime = new TimeSpan(0, 0, minutes); // Для ускорения процесса
+            CookingTime = TimeSpan.FromSeconds(minutes); // Для ускорения процесса
         }
     }
 }

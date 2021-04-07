@@ -26,7 +26,7 @@ namespace PizzaTime
 
         public async Task MakeOrder(Pizzas pizzaName)
         {
-            var pizza = _pizzasList.FirstOrDefault(p => p.Name == pizzaName);
+            var pizza = _pizzasList.Find(p => p.Name == pizzaName);
 
             if (pizza == null)
                 throw new Exception($"Пиццы {pizzaName} не существует");

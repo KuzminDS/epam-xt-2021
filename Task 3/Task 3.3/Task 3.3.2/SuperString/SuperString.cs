@@ -11,18 +11,41 @@ namespace SuperString
     {
         public static TextType GetTextType(this string text)
         {
-            if (text.All(c => char.IsDigit(c)))
-                return TextType.Number;
-
-            if (text.All(c => char.IsLetter(c)))
+            if(char.IsDigit(text[0]))
             {
-                if (Regex.IsMatch(text, @"^[а-яА-ЯЁё]*$"))
-                    return TextType.Russian;
-                if (Regex.IsMatch(text, @"^[a-zA-Z]*$"))
+                if (text.All(c => char.IsDigit(c)))
+                    return TextType.Number;
+                else
+                    return TextType.Mixed;
+            }
+            else if(IsEnglishLetter(text[0]))
+            {
+                if (text.All(c => IsEnglishLetter(c)))
                     return TextType.English;
+                else
+                    return TextType.Mixed;
+            }
+            else if (IsRussianLetter(text[0]))
+            {
+                if (text.All(c => IsRussianLetter(c)))
+                    return TextType.Russian;
+                else
+                    return TextType.Mixed;
             }
 
             return TextType.Mixed;
+        }
+
+        private static bool IsRussianLetter(char letter)
+        {
+            var ch = char.ToUpper(letter);
+            return (ch >= 'А' && ch <= 'Я') || ch == 'Ё';
+        }
+
+        private static bool IsEnglishLetter(char letter)
+        {
+            var ch = char.ToUpper(letter);
+            return ch >= 'A' && ch <= 'Z';
         }
     }
 }

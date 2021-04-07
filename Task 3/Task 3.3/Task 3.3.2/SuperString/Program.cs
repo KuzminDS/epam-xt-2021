@@ -13,7 +13,7 @@ namespace SuperString
             var eng = "Hello";
             Console.WriteLine(eng.GetTextType());
 
-            var rus = "Привет";
+            var rus = "Приветё";
             Console.WriteLine(rus.GetTextType());
 
             var num = "9890898";
