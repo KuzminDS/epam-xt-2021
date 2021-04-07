@@ -17,7 +17,7 @@ namespace WeakestLink
 
             if (number >= removingNumber)
             {
-                var people = CreateList(number).ToList();
+                var people = CreateCollection(number).ToList();
                 StartGame(people, removingNumber);
             }
             else
@@ -26,39 +26,39 @@ namespace WeakestLink
             }
         }
 
-        private static void StartGame(ICollection<Person> people, int removingNumber)
+        private static void StartGame(List<Person> people, int removingNumber)
         {
-            Console.WriteLine("ВЫВОД: Сгенерирован круг людей. Начинаем вычеркивать каждого второго.");
+            Console.WriteLine($"ВЫВОД: Сгенерирован круг людей. Начинаем вычеркивать каждого {removingNumber}-го.");
 
             var removingIndex = removingNumber - 1;
             var round = 1;
 
             while (people.Count >= removingNumber)
             {
-                var person = people.ElementAtOrDefault(removingIndex);
-
-                if (person != null)
+                if(removingIndex < people.Count)
                 {
-                    people.Remove(person);
-                    Console.WriteLine($"ВЫВОД: Раунд {round++}. Вычеркнут человек. Людей осталось: {people.Count}");
+                    var num = people[removingIndex].Number;
+                    people.RemoveAt(removingIndex);
+                    Console.WriteLine($"ВЫВОД: Раунд {round++}. Вычеркнут человек №{num}. Людей осталось: {people.Count}");
 
                     removingIndex += removingNumber - 1;
                 }
                 else
                 {
-                    removingIndex = removingNumber - 1 - people.Count + removingIndex;
+                    removingIndex += removingNumber - people.Count - 2;
                 }
             }
 
             Console.WriteLine("ВЫВОД: Игра окончена. Невозможно вычеркнуть больше людей.");
+            Console.Write("Список номеров победителей: ");
+            foreach (var person in people)
+                Console.Write($"{person.Number} ");
+            Console.WriteLine();
         }
 
-        private static IEnumerable<Person> CreateList(int number)
+        private static IEnumerable<Person> CreateCollection(int number)
         {
-            for (int i = 1; i <= number; i++)
-            {
-                yield return new Person { Number = i };
-            }
+            return Enumerable.Range(1, number).Select(n => new Person { Number = n });
         }
 
         private static int EnterNumber()

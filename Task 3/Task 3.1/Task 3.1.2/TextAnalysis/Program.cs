@@ -17,7 +17,7 @@ namespace TextAnalysis
 
             try
             {
-                text = ReadFile(fileName);
+                text = File.ReadAllText(fileName);
             }
             catch (Exception)
             {
@@ -28,41 +28,24 @@ namespace TextAnalysis
             var table = GetWordsFrequency(text);
 
             Console.WriteLine("Частота слов в тексте:");
+            Console.WriteLine(string.Format("|{0,20}|{1,15}|", "Слово", "Частота слов"));
             foreach (var item in table)
             {
-                Console.WriteLine($"{item.Key} - {item.Value}");
+                Console.WriteLine(string.Format("|{0,20}|{1,15}|", item.Key, item.Value));
             }
+
+            Console.ReadKey();
         }
 
         private static IDictionary<string, int> GetWordsFrequency(string text)
         {
-            var table = new Dictionary<string, int>();
-            var separators = "[} .,;:!?(){]\"'" + Environment.NewLine;
-            var words = text.Split(separators.ToArray(), StringSplitOptions.RemoveEmptyEntries);
+            var separators = text.Where(c => char.IsPunctuation(c) || char.IsWhiteSpace(c)).Distinct().ToArray();
+            var words = text.Split(separators, StringSplitOptions.RemoveEmptyEntries).Select(w => w.ToLower());
 
-            foreach (var word in words)
-            {
-                var lowercaseWord = word.ToLower();
-                if (table.ContainsKey(lowercaseWord))
-                {
-                    table[lowercaseWord]++;
-                }
-                else
-                {
-                    table.Add(lowercaseWord, 1);
-                }
-            }
-
-            return table.OrderByDescending(pair => pair.Value)
-                        .ToDictionary(pair => pair.Key, pair => pair.Value);
-        }
-
-        private static string ReadFile(string fileName)
-        {
-            using (StreamReader sr = new StreamReader(fileName))
-            {
-                return sr.ReadToEnd();
-            }
+            return words.GroupBy(w => w)
+                        .Select(p => new KeyValuePair<string, int>(p.Key, p.Count()))
+                        .OrderByDescending(p => p.Value)
+                        .ToDictionary(p => p.Key, p => p.Value);
         }
     }
 }
