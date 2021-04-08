@@ -82,11 +82,16 @@ namespace DynamicArray
 
 
         /// <summary>
-        /// Method returns true if new capacity doesn't lead to losing data otherwise returns fasle
+        /// Method returns true if new capacity doesn't lead to losing data and change capacity otherwise returns fasle
         /// </summary>
         public bool EnsureCapacity(int newCapacity)
         {
-            return newCapacity >= Length;
+            if (newCapacity >= Length)
+            {
+                Capacity = newCapacity;
+                return true;
+            }
+            return false;
         }
 
         public void Add(T item)
