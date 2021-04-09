@@ -9,6 +9,7 @@ namespace PizzaTime
 {
     public class Pizzeria
     {
+        private Dictionary<Pizzas, Pizza> _pizzasDictionary;
         private List<Pizza> _pizzasList;
         private List<Order> _ordersList;
 
@@ -22,11 +23,14 @@ namespace PizzaTime
         {
             _pizzasList = new List<Pizza>(pizzas);
             _ordersList = new List<Order>();
+
+            _pizzasDictionary = new Dictionary<Pizzas, Pizza>();
+            pizzas.ForEach(p => _pizzasDictionary.Add(p.Name, p));
         }
 
         public async Task MakeOrder(Pizzas pizzaName)
         {
-            var pizza = _pizzasList.Find(p => p.Name == pizzaName);
+            var pizza = _pizzasDictionary[pizzaName];
 
             if (pizza == null)
                 throw new Exception($"Пиццы {pizzaName} не существует");
