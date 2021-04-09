@@ -45,7 +45,7 @@ namespace DynamicArray
             {
                 if (i < 0)
                 {
-                    if (Math.Abs(i) > Length)
+                    if (i < -Length)
                         throw new IndexOutOfRangeException();
                     return _array[Length + i];
                 }
@@ -61,7 +61,7 @@ namespace DynamicArray
             {
                 if (i < 0)
                 {
-                    if (Math.Abs(i) > Length)
+                    if (i < -Length)
                         throw new IndexOutOfRangeException();
                     _array[Length + i] = value;
                 }
