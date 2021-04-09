@@ -15,22 +15,16 @@ namespace SuperString
             {
                 if (text.All(c => char.IsDigit(c)))
                     return TextType.Number;
-                else
-                    return TextType.Mixed;
             }
             else if(IsEnglishLetter(text[0]))
             {
                 if (text.All(c => IsEnglishLetter(c)))
                     return TextType.English;
-                else
-                    return TextType.Mixed;
             }
             else if (IsRussianLetter(text[0]))
             {
                 if (text.All(c => IsRussianLetter(c)))
                     return TextType.Russian;
-                else
-                    return TextType.Mixed;
             }
 
             return TextType.Mixed;
