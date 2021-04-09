@@ -17,6 +17,12 @@ namespace SuperArray
             Console.WriteLine($"Sum = {array.GetSum()}");
             Console.WriteLine($"Mean = {array.GetMean()}");
             Console.WriteLine($"Mode = {array.GetMode()}");
+
+            array.ForEach(e => e + 1);
+            foreach (var item in array)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }

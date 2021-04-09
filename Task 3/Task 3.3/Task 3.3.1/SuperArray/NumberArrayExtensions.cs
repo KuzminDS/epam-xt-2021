@@ -9,6 +9,14 @@ namespace SuperArray
     public static class NumberArrayExtensions                 
     {
         #region ByteArrayExtensions
+        public static void ForEach(this byte[] array, Func<byte, byte> func)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = func(array[i]);
+            }
+        }
+
         public static int GetSum(this byte[] array)
         {
             if (array == null)
@@ -45,6 +53,14 @@ namespace SuperArray
         #endregion
 
         #region SbyteArrayExtensions
+        public static void ForEach(this sbyte[] array, Func<sbyte, sbyte> func)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = func(array[i]);
+            }
+        }
+
         public static int GetSum(this sbyte[] array)
         {
             if (array == null)
@@ -81,6 +97,14 @@ namespace SuperArray
         #endregion
 
         #region ShortArrayExtensions
+        public static void ForEach(this short[] array, Func<short, short> func)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = func(array[i]);
+            }
+        }
+
         public static int GetSum(this short[] array)
         {
             if (array == null)
@@ -117,6 +141,14 @@ namespace SuperArray
         #endregion
 
         #region UshortArrayExtensions
+        public static void ForEach(this ushort[] array, Func<ushort, ushort> func)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = func(array[i]);
+            }
+        }
+
         public static int GetSum(this ushort[] array)
         {
             if (array == null)
@@ -153,6 +185,14 @@ namespace SuperArray
         #endregion
 
         #region UintArrayExtensions
+        public static void ForEach(this uint[] array, Func<uint, uint> func)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = func(array[i]);
+            }
+        }
+
         public static uint GetSum(this uint[] array)
         {
             if (array == null)
@@ -189,6 +229,14 @@ namespace SuperArray
         #endregion
 
         #region IntArrayExtensions
+        public static void ForEach(this int[] array, Func<int, int> func)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = func(array[i]);
+            }
+        }
+
         public static int GetSum(this int[] array)
         {
             if (array == null)
@@ -225,6 +273,14 @@ namespace SuperArray
         #endregion
 
         #region UlongArrayExtensions
+        public static void ForEach(this ulong[] array, Func<ulong, ulong> func)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = func(array[i]);
+            }
+        }
+
         public static ulong GetSum(this ulong[] array)
         {
             if (array == null)
@@ -266,6 +322,14 @@ namespace SuperArray
         #endregion
 
         #region LongArrayExtensions
+        public static void ForEach(this long[] array, Func<long, long> func)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = func(array[i]);
+            }
+        }
+
         public static long GetSum(this long[] array)
         {
             if (array == null)
@@ -302,6 +366,14 @@ namespace SuperArray
         #endregion
 
         #region FloatArrayExtensions
+        public static void ForEach(this float[] array, Func<float, float> func)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = func(array[i]);
+            }
+        }
+
         public static float GetSum(this float[] array)
         {
             if (array == null)
@@ -338,6 +410,14 @@ namespace SuperArray
         #endregion
 
         #region DoubleArrayExtensions
+        public static void ForEach(this double[] array, Func<double, double> func)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = func(array[i]);
+            }
+        }
+
         public static double GetSum(this double[] array)
         {
             if (array == null)
@@ -374,6 +454,14 @@ namespace SuperArray
         #endregion
 
         #region DecimalArrayExtensions
+        public static void ForEach(this decimal[] array, Func<decimal, decimal> func)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = func(array[i]);
+            }
+        }
+
         public static decimal GetSum(this decimal[] array)
         {
             if (array == null)
