@@ -44,17 +44,33 @@ namespace DynamicArray
             get
             {
                 if (i < 0)
+                {
+                    if (Math.Abs(i) > Length)
+                        throw new IndexOutOfRangeException();
                     return _array[Length + i];
+                }
                 else
+                {
+                    if (i >= Length)
+                        throw new IndexOutOfRangeException();
                     return _array[i];
+                }
             }
 
             set
             {
                 if (i < 0)
+                {
+                    if (Math.Abs(i) > Length)
+                        throw new IndexOutOfRangeException();
                     _array[Length + i] = value;
+                }
                 else
+                {
+                    if (i >= Length)
+                        throw new IndexOutOfRangeException();
                     _array[i] = value;
+                }
             }
         }
 
