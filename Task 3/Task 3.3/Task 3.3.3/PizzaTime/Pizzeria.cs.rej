@@ -1,0 +1,9 @@
+diff a/Task 3/Task 3.3/Task 3.3.3/PizzaTime/Pizzeria.cs b/Task 3/Task 3.3/Task 3.3.3/PizzaTime/Pizzeria.cs	(rejected hunks)
+@@ -30,7 +30,6 @@
+ 
+         public async Task MakeOrder(Pizzas pizzaName)
+         {
+-            var pizza = _pizzasList.Find(p => p.Name == pizzaName);
+             var pizza = _pizzasDictionary[pizzaName];
+ 
+             if (pizza == null)
