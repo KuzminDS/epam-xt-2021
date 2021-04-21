@@ -1,0 +1,9 @@
+diff a/Task 3/Task 3.1/Task 3.1.1/WeakestLink/Program.cs b/Task 3/Task 3.1/Task 3.1.1/WeakestLink/Program.cs	(rejected hunks)
+@@ -17,6 +17,7 @@
+ 
+             if (number >= removingNumber)
+             {
++                var people = CreateCollection(number).ToList();
+                 StartGame(people, removingNumber);
+             }
+             else
