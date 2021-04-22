@@ -14,6 +14,9 @@ namespace FileManagementSystem
         {
             var listener = new Listener(@"C:\Users\Дмитрий\Desktop\T");
             listener.Start();
+            Task.Delay(TimeSpan.FromSeconds(10)).Wait();
+            listener.End();
+            Task.Delay(TimeSpan.FromSeconds(10)).Wait();
         }
     }
 }
