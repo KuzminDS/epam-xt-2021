@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace FileManagementSystem.Logic
 {
     public class Listener
     {
-        private const string _backUpFolderName = ".customGit";
+        private readonly string _backUpFolderName = ConfigurationManager.AppSettings["backUpFolderName"];
         private string _directoryPath;
         private FileSystemWatcher _watcher;
 
@@ -44,14 +45,14 @@ namespace FileManagementSystem.Logic
             _watcher.Deleted += OnDeleted;
             _watcher.Renamed += OnRenamed;
 
-            _watcher.Filter = "*.txt";
+            _watcher.Filter = ConfigurationManager.AppSettings["filterTemplate"];
             _watcher.IncludeSubdirectories = true;
             _watcher.EnableRaisingEvents = true;
         }
 
         public void End()
         {
-            _watcher.Dispose();
+            _watcher?.Dispose();
         }
 
         private void OnChanged(object sender, FileSystemEventArgs e)
@@ -88,44 +89,13 @@ namespace FileManagementSystem.Logic
 
         private void BackUpChanges()
         {
-            string time = DateTime.Now.ToString().Replace(':', '-');
+            string time = DateTime.Now.ToString("dd.MM.yyyy hh:mm:ss").Replace(':', '-');
             string toCopyDirectoryPath = $@"{_directoryPath}\{_backUpFolderName}\{time}";
 
             if (!Directory.Exists(toCopyDirectoryPath))
             {
                 Directory.CreateDirectory(toCopyDirectoryPath);
-                CopyDirectory(_directoryPath, toCopyDirectoryPath, true);
-            }
-        }
-
-        private void CopyDirectory(string sourceDirName, string destDirName, bool copySubDirs)
-        {
-            var dir = new DirectoryInfo(sourceDirName);
-
-            if (!dir.Exists)
-                throw new DirectoryNotFoundException("Source directory does not exist or could not be found: " + sourceDirName);
-
-            var dirs = dir.GetDirectories();
-      
-            Directory.CreateDirectory(destDirName);
-
-            var files = dir.GetFiles();
-            foreach (var file in files)
-            {
-                var tempPath = Path.Combine(destDirName, file.Name);
-                file.CopyTo(tempPath, false);
-            }
-
-            if (copySubDirs)
-            {
-                foreach (var subdir in dirs)
-                {
-                    if (subdir.Name.Contains(_backUpFolderName))
-                        continue;
-
-                    var tempPath = Path.Combine(destDirName, subdir.Name);
-                    CopyDirectory(subdir.FullName, tempPath, copySubDirs);
-                }
+                DirectoryHelper.CopyDirectory(_directoryPath, toCopyDirectoryPath, true);
             }
         }
     }
