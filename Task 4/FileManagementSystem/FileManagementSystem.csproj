@@ -47,6 +47,7 @@
     <Compile Include="Entities\FileChange.cs" />
     <Compile Include="Entities\TextChange.cs" />
     <Compile Include="Logic\Listener.cs" />
+    <Compile Include="Logic\RollbackService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
