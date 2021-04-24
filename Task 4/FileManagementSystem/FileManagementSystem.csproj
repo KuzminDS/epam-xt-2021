@@ -34,18 +34,26 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\ChangeMode.cs" />
-    <Compile Include="Entities\FileChange.cs" />
-    <Compile Include="Entities\TextChange.cs" />
+    <Compile Include="Actions.cs" />
+    <Compile Include="ConsoleMenu.cs" />
+    <Compile Include="Logic\DirectoryHelper.cs" />
     <Compile Include="Logic\Listener.cs" />
     <Compile Include="Logic\RollbackService.cs" />
     <Compile Include="Program.cs" />
