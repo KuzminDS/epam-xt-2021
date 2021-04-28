@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FileManagementSystem
 {
-    public enum Actions
+    public enum MenuActions
     {
         None,
         Listener,

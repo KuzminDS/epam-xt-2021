@@ -19,9 +19,9 @@ namespace FileManagementSystem.Logic
             _directoryPath = directoryPath;
         }
 
-        public void Rollback(DateTime dateTime)
+        public void Rollback(DateTime rollbackDt)
         {
-            var backUpDirName = string.Join(@"\", _directoryPath, _backUpFolderName);
+            var backUpDirName = Path.Combine(_directoryPath, _backUpFolderName);
             var backUpDir = new DirectoryInfo(backUpDirName);
 
             if (!backUpDir.Exists)
@@ -30,25 +30,17 @@ namespace FileManagementSystem.Logic
             var dirs = backUpDir.GetDirectories();
 
             if (dirs.Length == 0)
-                throw new DirectoryNotFoundException("Директория для отката не найдена или она не существует");
+                throw new DirectoryNotFoundException("Директория для отката не найдена или она не существует или она пустая");
 
-            var dirDateTimes = dirs.Select(d => DateTime.ParseExact(d.Name.Replace('-', ':'), "dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture));
+            var dirDateTimes = dirs.Select(d => DateTime.ParseExact(d.Name, "dd.MM.yyyy HH-mm-ss", CultureInfo.InvariantCulture));
 
-            if (dateTime < dirDateTimes.FirstOrDefault())
-                throw new DirectoryNotFoundException("Директория не может откатиться на указанное время");
+            if (rollbackDt < dirDateTimes.FirstOrDefault())
+                throw new DirectoryNotFoundException("Директория не может откатиться на указанное время, так как резервная копия на данный момент не была записана");
 
-            var backUpDateTime = dirDateTimes.FirstOrDefault();
+            var backUpDateTime = dirDateTimes.OrderByDescending(dt => dt).FirstOrDefault(dt => dt <= rollbackDt);
 
-            foreach (var dt in dirDateTimes)
-            {
-                if (dateTime >= dt)
-                    backUpDateTime = dt;
-                else
-                    break;
-            }
-
-            DirectoryHelper.CleanDirectory(_directoryPath);
-            DirectoryHelper.CopyDirectory(string.Join(@"\", backUpDirName, backUpDateTime.ToString("dd.MM.yyyy HH-mm-ss")), _directoryPath, true);
+            DirectoryHelper.CleanDirectory(_directoryPath, _backUpFolderName);
+            DirectoryHelper.CopyDirectory(Path.Combine(backUpDirName, backUpDateTime.ToString("dd.MM.yyyy HH-mm-ss")), _directoryPath, _backUpFolderName);
         }
     }
 }

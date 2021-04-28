@@ -11,23 +11,20 @@ namespace FileManagementSystem
 {
     public class ConsoleMenu
     {
-        private Listener _listener;
-        private RollbackService _rollbackService;
-
         public void Start()
         {
             do
             {
                 PrintMenu();
-                var value = Console.ReadLine();
-                if (!int.TryParse(value, out int option) || option <= 0 || option > Enum.GetValues(typeof(Actions)).Length)
+
+                if (!TryEnterMenuAction(out MenuActions option))
                     break;
 
                 var directory = EnterDirectory();
 
                 try
                 {
-                    ExecuteAction((Actions)option, directory);
+                    ExecuteAction(option, directory);
                 }
                 catch (Exception ex)
                 {
@@ -37,23 +34,38 @@ namespace FileManagementSystem
             } while (true);
         }
 
-        private void ExecuteAction(Actions option, string directory)
+        private void PrintMenu()
+        {
+            Console.WriteLine(string.Join(Environment.NewLine,
+                "Выберите действие или введите любой другой текст для выхода:",
+                "1. Включить режим наблюдения",
+                "2. Включить режим отката"));
+        }
+
+        private bool TryEnterMenuAction(out MenuActions option)
+        {
+            var value = Console.ReadLine();
+            return Enum.TryParse(value, out option) && option > 0 && Enum.IsDefined(typeof(MenuActions), option);
+        }
+
+        private void ExecuteAction(MenuActions option, string directory)
         {
             switch (option)
             {
-                case Actions.None:
+                case MenuActions.None:
                     break;
-                case Actions.Listener:
-                    _listener?.End();
-                    _listener = new Listener(directory);
-                    _listener.Start();
-                    Console.WriteLine("Режим наблюдения работает, можете работать с директорией...");
+                case MenuActions.Listener:
+                    using (var listener = new Listener(directory))
+                    {
+                        listener.Start();
+                        Console.WriteLine("Режим наблюдения работает, можете работать с директорией. Для завершения работы нажмите любую клавишу.");
+                        Console.ReadKey();
+                    }
                     break;
-                case Actions.Rollback:
-                    _listener?.End();
-                    _rollbackService = new RollbackService(directory);
+                case MenuActions.Rollback:
+                    var rollbackService = new RollbackService(directory);
                     var dateTime = EnterDateTime();
-                    _rollbackService.Rollback(dateTime);
+                    rollbackService.Rollback(dateTime);
                     Console.WriteLine("Откат произошел успешно!");
                     break;
             }
@@ -85,14 +97,6 @@ namespace FileManagementSystem
                     Console.WriteLine("Введенное время некорректное, введите еще раз:");
 
             } while (true);
-        }
-
-        private void PrintMenu()
-        {
-            Console.WriteLine(string.Join(Environment.NewLine,
-                "Выберите действие или введите любой другой текст для выхода:",
-                "1. Включить режим наблюдения",
-                "2. Включить режим отката"));
         }
     }
 }

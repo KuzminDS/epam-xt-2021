@@ -10,9 +10,7 @@ namespace FileManagementSystem.Logic
 {
     public static class DirectoryHelper
     {
-        private static readonly string _backUpFolderName = ConfigurationManager.AppSettings["backUpFolderName"];
-
-        public static void CleanDirectory(string directoryPath)
+        public static void CleanDirectory(string directoryPath, params string[] directoriesToIgnore)
         {
             var dir = new DirectoryInfo(directoryPath);
 
@@ -26,41 +24,38 @@ namespace FileManagementSystem.Logic
 
             foreach (var subDir in dir.GetDirectories())
             {
-                if (subDir.FullName.Contains(_backUpFolderName))
+                if (directoriesToIgnore.Contains(subDir.Name))
                     continue;
 
                 Directory.Delete(subDir.FullName, true);
             }
         }
 
-        public static void CopyDirectory(string sourceDirName, string destDirName, bool copySubDirs)
+        public static void CopyDirectory(string sourceDirName, string destDirName, params string[] directoriesToIgnore)
         {
-            var dir = new DirectoryInfo(sourceDirName);
+            var sourceDir = new DirectoryInfo(sourceDirName);
 
-            if (!dir.Exists)
+            if (!sourceDir.Exists)
                 throw new DirectoryNotFoundException("Директоия не найдена или она не существует: " + sourceDirName);
 
-            var dirs = dir.GetDirectories();
+            var sourceSubDirs = sourceDir.GetDirectories();
 
             Directory.CreateDirectory(destDirName);
 
-            var files = dir.GetFiles();
+            var files = sourceDir.GetFiles();
             foreach (var file in files)
             {
                 var tempPath = Path.Combine(destDirName, file.Name);
                 file.CopyTo(tempPath, false);
             }
 
-            if (copySubDirs)
+            foreach (var subDir in sourceSubDirs)
             {
-                foreach (var subdir in dirs)
-                {
-                    if (subdir.Name.Contains(_backUpFolderName))
-                        continue;
+                if (directoriesToIgnore.Contains(subDir.Name))
+                    continue;
 
-                    var tempPath = Path.Combine(destDirName, subdir.Name);
-                    CopyDirectory(subdir.FullName, tempPath, copySubDirs);
-                }
+                var tempPath = Path.Combine(destDirName, subDir.Name);
+                CopyDirectory(subDir.FullName, tempPath, directoriesToIgnore);
             }
         }
     }

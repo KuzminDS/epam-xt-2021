@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FileManagementSystem.Logic
 {
-    public class Listener
+    public class Listener : IDisposable
     {
         private readonly string _backUpFolderName = ConfigurationManager.AppSettings["backUpFolderName"];
         private string _directoryPath;
@@ -22,11 +22,11 @@ namespace FileManagementSystem.Logic
 
         public void Start()
         {
-            Directory.SetCurrentDirectory(_directoryPath);
+            var backUpDir = Path.Combine(_directoryPath, _backUpFolderName);    
 
-            if (!Directory.Exists(_backUpFolderName))
+            if (!Directory.Exists(backUpDir))
             {
-                DirectoryInfo di = Directory.CreateDirectory(_backUpFolderName);
+                DirectoryInfo di = Directory.CreateDirectory(backUpDir);
                 di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             }
 
@@ -35,67 +35,55 @@ namespace FileManagementSystem.Logic
                                     | NotifyFilters.CreationTime
                                     | NotifyFilters.DirectoryName
                                     | NotifyFilters.FileName
-                                    | NotifyFilters.LastAccess
                                     | NotifyFilters.LastWrite
                                     | NotifyFilters.Security
                                     | NotifyFilters.Size;
 
             _watcher.Changed += OnChanged;
-            _watcher.Created += OnCreated;
-            _watcher.Deleted += OnDeleted;
-            _watcher.Renamed += OnRenamed;
+            _watcher.Created += OnCreatedDeletedRenamed;
+            _watcher.Deleted += OnCreatedDeletedRenamed;
+            _watcher.Renamed += OnCreatedDeletedRenamed;
 
             _watcher.Filter = ConfigurationManager.AppSettings["filterTemplate"];
             _watcher.IncludeSubdirectories = true;
             _watcher.EnableRaisingEvents = true;
         }
 
-        public void End()
+        public void Dispose()
         {
             _watcher?.Dispose();
         }
 
         private void OnChanged(object sender, FileSystemEventArgs e)
         {
-            if (e.ChangeType != WatcherChangeTypes.Changed || e.FullPath.Contains(_backUpFolderName))
+            if (e.ChangeType != WatcherChangeTypes.Changed || ContainsFolder(e.FullPath, _backUpFolderName))
                 return;
 
             BackUpChanges();
         }
 
-        private void OnCreated(object sender, FileSystemEventArgs e)
+        private void OnCreatedDeletedRenamed(object sender, FileSystemEventArgs e)
         {
-            if (e.FullPath.Contains(_backUpFolderName))
+            if (ContainsFolder(e.FullPath, _backUpFolderName))
                 return;
 
             BackUpChanges();
         }
 
-        private void OnDeleted(object sender, FileSystemEventArgs e)
+        private bool ContainsFolder(string path, string folderName)
         {
-            if (e.FullPath.Contains(_backUpFolderName))
-                return;
-
-            BackUpChanges();
-        }
-
-        private void OnRenamed(object sender, RenamedEventArgs e)
-        {
-            if (e.FullPath.Contains(_backUpFolderName))
-                return;
-
-            BackUpChanges();
+            return path.Split(Path.DirectorySeparatorChar).Contains(folderName);
         }
 
         private void BackUpChanges()
         {
-            string time = DateTime.Now.ToString("dd.MM.yyyy hh:mm:ss").Replace(':', '-');
+            string time = DateTime.Now.ToString("dd.MM.yyyy hh-mm-ss");
             string toCopyDirectoryPath = $@"{_directoryPath}\{_backUpFolderName}\{time}";
 
             if (!Directory.Exists(toCopyDirectoryPath))
             {
                 Directory.CreateDirectory(toCopyDirectoryPath);
-                DirectoryHelper.CopyDirectory(_directoryPath, toCopyDirectoryPath, true);
+                DirectoryHelper.CopyDirectory(_directoryPath, toCopyDirectoryPath, _backUpFolderName);
             }
         }
     }
